@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.b-t {
+  @apply border-1 border-b-blue-900;
+}

@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+.navbar {
+  font-family: "Poppins";
+}
+
+.cart-count {
+  position: absolute;
+  min-width: 20px;
+  padding: 2px;
+  top: 0;
+  right: -5px;
+  font-size: x-small;
+  background-color: red;
+  color: white;
+  @apply aspect-square rounded-full flex justify-center items-center;
+}
+
+.active {
+  border-color: white;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+}

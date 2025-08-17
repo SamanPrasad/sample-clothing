@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Product 01",
+      "category": "men"
+    },
+    {
+      "id": 2,
+      "title": "Product 02",
+      "category": "women"
+    },
+    {
+      "id": 3,
+      "title": "Product 03",
+      "category": "men"
+    },
+    {
+      "id": 4,
+      "title": "Product 04",
+      "category": "men"
+    }
+  ]
+}
