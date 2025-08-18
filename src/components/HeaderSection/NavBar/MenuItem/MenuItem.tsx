@@ -24,7 +24,7 @@ function MenuItem({ menu }: { menu: Menu }) {
 
   return (
     <div
-      className={"menu-item group z-50 flex justify-start relative"}
+      className={"menu-item z-50 flex justify-start relative"}
       onMouseEnter={() => setOpenStatus(true)}
       onMouseLeave={() => {
         setOpenStatus(false);
@@ -42,8 +42,8 @@ function MenuItem({ menu }: { menu: Menu }) {
       </Link>
       {open && menu.children && (
         <div
-          className={`menu-item-children rounded-md 
-            ${open ? " menu-open" : ""}
+          className={`menu-item-children rounded-md top-full shadow-[1px_1px_15px_rgba(0, 0, 0, 0.452)]
+            ${open ? "menu-open" : ""} 
             ${menu.level < 2 ? " parent-level" : " sub-level"}
           `}
           style={{
