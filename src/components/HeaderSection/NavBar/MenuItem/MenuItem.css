@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+.menu-item {
+  width: auto;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border 0.13s ease-in;
+}
+
+.menu-item:hover {
+  border: 1px solid white;
+}
+
+.parent-level,
+.sub-level {
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.719);
+}
+
+.parent-level {
+  top: 104%;
+  left: 0;
+  min-width: 100%;
+}
+
+.sub-level {
+  left: 100%;
+  width: auto;
+}
+
+.menu-item-children {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.582);
+  height: 0;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: height 0s ease-in, opacity 0s ease-in, transform 0s ease-in;
+}
+
+.menu-item-children.menu-open {
+  transition: height 0.25s ease-in, opacity 0.25s ease-in,
+    transform 0.25s ease-in;
+}
