@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { lazy, StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Home from "./pages/Home.tsx";
@@ -8,8 +8,9 @@ import Login from "./pages/Login.tsx";
 import Cart from "./pages/Cart.tsx";
 import ShopCategory from "./pages/ShopCategory.tsx";
 import Product from "./pages/Product.tsx";
-import Shop from "./pages/Shop.tsx";
 import Categories from "./pages/Categories.tsx";
+import Products from "./pages/Products.tsx";
+const Sports = lazy(() => import("./pages/Sports.tsx"));
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: "products",
-        Component: Shop,
+        Component: Products,
       },
       {
         path: "products/:productId",
@@ -59,6 +60,22 @@ const router = createBrowserRouter([
       {
         path: "cart",
         Component: Cart,
+      },
+      {
+        path: "collections",
+        element: (
+          <Suspense fallback={<p>Loading...</p>}>
+            <Sports />
+          </Suspense>
+        ),
+      },
+      {
+        path: "collections/sports/teen",
+        element: (
+          <Suspense fallback={<p>Loading...</p>}>
+            <Sports />
+          </Suspense>
+        ),
       },
     ],
   },

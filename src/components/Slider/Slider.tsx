@@ -66,7 +66,7 @@ function Slider() {
   }, [current]);
 
   return (
-    <div className="slider overflow-hidden group h-[40vw] relative hidden lg:block">
+    <div className="slider overflow-hidden group h-[40vw] relative">
       <div className="sliders-container relative h-full">
         <img
           className={`slider-item current z-10 object-cover ${

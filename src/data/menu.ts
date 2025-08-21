@@ -12,13 +12,13 @@ export default [
     level: 1,
     children: [
       {
-        id: 4,
+        id: 3,
         menu: "Tops Tops Tops Tops",
         uri: "/categories/tops",
         level: 2,
       },
       {
-        id: 5,
+        id: 4,
         menu: "Trousers",
         uri: "/categories/trousers",
         level: 2,
@@ -32,19 +32,19 @@ export default [
     ],
   },
   {
-    id: 3,
+    id: 6,
     menu: "Categories",
     uri: "/categories",
     level: 1,
     children: [
       {
-        id: 4,
+        id: 7,
         menu: "Tops Tops Tops Tops",
         uri: "/categories/tops",
         level: 2,
       },
       {
-        id: 5,
+        id: 8,
         menu: "Trousers",
         uri: "/categories/trousers",
         level: 2,
@@ -52,37 +52,37 @@ export default [
     ],
   },
   {
-    id: 8,
+    id: 9,
     menu: "Collections",
     uri: "/collections",
     level: 1,
     children: [
       {
-        id: 9,
+        id: 10,
         menu: "Party",
         uri: "/collections/party",
         level: 2,
         children: [
           {
-            id: 6,
+            id: 11,
             menu: "Teen",
             uri: "/collections/sports?type=teen",
             level: 3,
           },
           {
-            id: 7,
+            id: 12,
             menu: "Adult",
             uri: "/collections/sports?type=adult",
             level: 3,
           },
           {
-            id: 7,
+            id: 13,
             menu: "Adult",
             uri: "/collections/sports?type=adult",
             level: 3,
           },
           {
-            id: 7,
+            id: 14,
             menu: "Adult",
             uri: "/collections/sports?type=adult",
             level: 3,
@@ -90,33 +90,33 @@ export default [
         ],
       },
       {
-        id: 10,
+        id: 15,
         menu: "Wedding",
         uri: "/collections/wedding",
         level: 2,
       },
       {
-        id: 11,
+        id: 16,
         menu: "90's",
         uri: "/collections/90s",
         level: 2,
       },
       {
-        id: 12,
+        id: 17,
         menu: "Sports",
         uri: "/collections/sports",
         level: 2,
         children: [
           {
-            id: 6,
+            id: 18,
             menu: "Teen",
-            uri: "/collections/sports?type=teen",
+            uri: "/collections/sports/teen",
             level: 3,
           },
           {
-            id: 7,
+            id: 19,
             menu: "Adult",
-            uri: "/collections/sports?type=adult",
+            uri: "/collections/sports/adult",
             level: 3,
           },
         ],
@@ -124,13 +124,13 @@ export default [
     ],
   },
   {
-    id: 13,
+    id: 20,
     menu: "Offers",
     uri: "/offers",
     level: 1,
   },
   {
-    id: 14,
+    id: 21,
     menu: "My Account",
     uri: "/my-account",
     level: 1,

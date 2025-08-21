@@ -7,7 +7,7 @@ function Navbar() {
   return (
     <div className="navbar text-white bg-black h-12 w-full flex justify-center items-center gap-3 px-40 z-50">
       {menu.map((item) => {
-        return <MenuItem menu={item} />;
+        return <MenuItem key={item.id} menu={item} />;
       })}
     </div>
   );

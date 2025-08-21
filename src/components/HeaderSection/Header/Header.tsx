@@ -19,7 +19,7 @@ function Header() {
         </div>
       </div>
       <div className="text-[max(20px,3vw)] flex-1 flex items-center justify-center uppercase">
-        <span className="font-bold">Kelly Felder</span>
+        <span className="font-bold">Kelly Felder Clone</span>
       </div>
       <div className="account flex-1 flex justify-end items-center gap-4">
         <div className="search border-b-black border-b-1 flex-auto flex justify-between">

@@ -6,7 +6,9 @@ import MemoizedSlider from "../components/Slider/Slider";
 function Home() {
   return (
     <div>
-      <MemoizedSlider />
+      <div className="hidden lg:block">
+        <MemoizedSlider />
+      </div>
     </div>
   );
 }

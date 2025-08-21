@@ -11,7 +11,11 @@ interface Menu {
   children?: Menu[];
 }
 
-function MenuItem({ menu }: { menu: Menu }) {
+interface Props {
+  menu: Menu;
+}
+
+function MenuItem({ menu }: Props) {
   const location = useLocation();
   const divRef = useRef<HTMLDivElement | null>(null);
   const [overflow, setOverflow] = useState(false);
@@ -24,7 +28,7 @@ function MenuItem({ menu }: { menu: Menu }) {
 
   return (
     <div
-      className={"menu-item z-50 flex justify-start relative"}
+      className={`menu-item z-50 relative ${menu.level != 1 ? "px-1" : ""}`}
       onMouseEnter={() => setOpenStatus(true)}
       onMouseLeave={() => {
         setOpenStatus(false);
@@ -33,12 +37,21 @@ function MenuItem({ menu }: { menu: Menu }) {
     >
       <Link
         to={menu.uri}
-        className={`flex justify-between items-center w-full px-9 text-start py-1 z-40 ${
-          location.pathname + location.search == menu.uri ? "active" : ""
-        }`}
+        className={`menu-item-link flex justify-between items-center w-full px-9 my-1 ${
+          menu.level == 2 ? "pe-2" : ""
+        } text-start py-1 z-40 
+        ${
+          location.pathname + location.search == menu.uri ||
+          (location.pathname.includes(menu.uri) && menu.uri != "/")
+            ? "active"
+            : ""
+        }
+        `}
       >
         {menu.menu}
-        {menu.children && <IoIosArrowForward className="ms-2 mt-[2px]" />}
+        {menu.level != 1 && menu.children && (
+          <IoIosArrowForward className="ms-2 mt-[2px]" />
+        )}
       </Link>
       {open && menu.children && (
         <div
@@ -58,7 +71,7 @@ function MenuItem({ menu }: { menu: Menu }) {
           }}
         >
           {menu.children.map((item) => (
-            <MenuItem menu={item} />
+            <MenuItem key={item.id} menu={item} />
           ))}
         </div>
       )}
