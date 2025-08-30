@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { Link, useLocation } from "react-router";
-import "./MenuItem.css";
+import styles from "./MenuItem.module.css";
 
-interface Menu {
+export interface Menu {
   id: number;
   menu: string;
   level: number;
@@ -28,8 +28,13 @@ function MenuItem({ menu }: Props) {
 
   return (
     <div
-      className={`menu-item z-50 relative ${menu.level != 1 ? "px-1" : ""}`}
-      onMouseEnter={() => setOpenStatus(true)}
+      className={`${styles.menuItem} z-50 relative ${
+        menu.level != 1 ? "px-1" : ""
+      }`}
+      onMouseEnter={() => {
+        console.log("enter");
+        setOpenStatus(true);
+      }}
       onMouseLeave={() => {
         setOpenStatus(false);
         setOverflow(false);
@@ -37,13 +42,15 @@ function MenuItem({ menu }: Props) {
     >
       <Link
         to={menu.uri}
-        className={`menu-item-link flex justify-between items-center w-full px-9 my-1 ${
+        className={`${
+          styles.menuItemLink
+        } flex justify-between items-center w-full px-9 my-1 ${
           menu.level == 2 ? "pe-2" : ""
         } text-start py-1 z-40 
         ${
           location.pathname + location.search == menu.uri ||
           (location.pathname.includes(menu.uri) && menu.uri != "/")
-            ? "active"
+            ? `${styles.active}`
             : ""
         }
         `}
@@ -55,9 +62,11 @@ function MenuItem({ menu }: Props) {
       </Link>
       {open && menu.children && (
         <div
-          className={`menu-item-children rounded-md top-full shadow-[1px_1px_15px_rgba(0, 0, 0, 0.452)]
-            ${open ? "menu-open" : ""} 
-            ${menu.level < 2 ? " parent-level" : " sub-level"}
+          className={`${
+            styles.menuItemChildren
+          } rounded-md top-full shadow-[1px_1px_15px_rgba(0, 0, 0, 0.452)]
+            ${open ? `${styles.menuOpen}` : ""} 
+            ${menu.level < 2 ? ` ${styles.parentLevel}` : ` ${styles.subLevel}`}
           `}
           style={{
             height,

@@ -1,10 +1,17 @@
 @import "tailwindcss";
 
-.menu-item {
+.active {
+  border-color: white;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+}
+
+.menuItem {
   width: auto;
 }
 
-.menu-item-link {
+.menuItemLink {
   width: auto;
   border: 1px solid transparent;
   border-radius: 6px;
@@ -15,26 +22,22 @@
   transition: border 0.13s ease-in;
 }
 
-.menu-item-link:hover {
+.menuItemLink:hover {
   border: 1px solid white;
 }
 
-.parent-level {
+.parentLevel {
   @apply top-[100%] left-0 min-w-full;
 }
 
-.sub-level {
+.subLevel {
   @apply -top-1 left-full w-auto pe-1;
 }
 
-.menu-item-children {
+.menuItemChildren {
   @apply absolute bg-black/50 h-0 opacity-0 -translate-y-5 transition-all duration-[0s] ease-in;
 }
 
-.menu-item-children:hover ~ .menu-item-link {
-  border: 1px solid white;
-}
-
-.menu-open {
+.menuOpen {
   @apply transition-all translate-y-0 opacity-100 duration-[0.25s] ease-in;
 }

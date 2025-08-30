@@ -10,7 +10,7 @@ import ShopCategory from "./pages/ShopCategory.tsx";
 import Product from "./pages/Product.tsx";
 import Categories from "./pages/Categories.tsx";
 import Products from "./pages/Products.tsx";
-const Sports = lazy(() => import("./pages/Sports.tsx"));
+const Collections = lazy(() => import("./pages/Collections.tsx"));
 
 const router = createBrowserRouter([
   {
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
         path: "collections",
         element: (
           <Suspense fallback={<p>Loading...</p>}>
-            <Sports />
+            <Collections />
           </Suspense>
         ),
       },
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
         path: "collections/sports/teen",
         element: (
           <Suspense fallback={<p>Loading...</p>}>
-            <Sports />
+            <Collections />
           </Suspense>
         ),
       },
