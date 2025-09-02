@@ -8,12 +8,12 @@
 }
 
 .slider-arrow {
-  @apply h-15 rounded-4xl opacity-0 group-hover:opacity-100 group-hover:translate-x-0;
+  @apply min-h-8 h-[8vw] md:h-15 rounded-4xl md:opacity-0 group-hover:opacity-100 group-hover:translate-x-0 bg-[#d4d4d4] md:bg-transparent;
   transition: opacity 1s, translate 1s, background-color 0.3s;
 }
 
 .slider-arrow:hover {
-  background-color: rgb(212, 212, 212);
+  background-color: #d4d4d4;
   cursor: pointer;
 }
 

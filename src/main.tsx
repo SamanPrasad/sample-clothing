@@ -10,11 +10,12 @@ import ShopCategory from "./pages/ShopCategory.tsx";
 import Product from "./pages/Product.tsx";
 import Categories from "./pages/Categories.tsx";
 import Products from "./pages/Products.tsx";
+import StoreProvider from "./store/StoreProvider.tsx";
 const Collections = lazy(() => import("./pages/Collections.tsx"));
 
 const router = createBrowserRouter([
   {
-    Component: RootComponent,
+    Component: StoreProvider,
     children: [
       {
         index: true,

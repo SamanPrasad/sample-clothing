@@ -1,4 +1,3 @@
-import StoreProvider from "../store/StoreProvider";
 import "../App.css";
 import { Outlet } from "react-router";
 import HeaderSection from "./HeaderSection/HeaderSection";
@@ -7,21 +6,22 @@ import { useEffect } from "react";
 
 function RootComponent() {
   useEffect(() => {
-    window.addEventListener("blur", () => {
-      document.title = "A bespoke tale of luxary ❤";
-    });
-    window.addEventListener("focus", () => {
-      document.title = "Kelly Felder Clone";
-    });
+    const handleFocus = () => (document.title = "Kelly Felder Clone");
+    const handleBlur = () => (document.title = "A bespoke tale of luxary ❤");
+    window.addEventListener("blur", handleBlur);
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("blur", handleBlur);
+      window.removeEventListener("focus", handleFocus);
+    };
   }, []);
 
   return (
     <div>
-      <StoreProvider>
-        <HeaderSection />
-        <Outlet />
-        <Footer />
-      </StoreProvider>
+      <HeaderSection />
+      <Outlet />
+      <Footer />
     </div>
   );
 }

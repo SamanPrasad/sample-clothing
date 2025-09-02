@@ -1,10 +1,13 @@
-import React, { type ReactNode } from "react";
 import { Provider } from "react-redux";
 import { store } from "./store";
-import { Outlet } from "react-router";
+import RootComponent from "../components/RootComponent";
 
-function StoreProvider({ children }: { children: ReactNode }) {
-  return <Provider store={store}>{children}</Provider>;
+function StoreProvider() {
+  return (
+    <Provider store={store}>
+      <RootComponent />
+    </Provider>
+  );
 }
 
 export default StoreProvider;

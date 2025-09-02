@@ -1,6 +1,5 @@
-import React from "react";
 import { useSelector } from "react-redux";
-import type { RootStore } from "../../../../store/store";
+import type { RootStore } from "../../../store/store";
 
 function Cart() {
   const count = useSelector((store: RootStore) => store.cart.count);

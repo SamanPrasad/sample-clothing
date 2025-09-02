@@ -1,8 +1,7 @@
-import React from "react";
-import menu from "../../../../data/menu";
 import MenuItem from "./MenuItem/MenuItem";
+import menu from "../../../../data/menu";
 
-function MainMenu() {
+function Navbar() {
   return (
     <div className="font-[Poppins] text-white bg-black h-12 w-full hidden lg:flex justify-center items-center gap-3 px-40 z-50">
       {menu.map((item) => {
@@ -12,4 +11,4 @@ function MainMenu() {
   );
 }
 
-export default MainMenu;
+export default Navbar;

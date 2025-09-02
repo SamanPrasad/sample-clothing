@@ -6,7 +6,7 @@ import Language from "../Components/Language";
 import Search from "../Components/Search/Search";
 import Title from "../Components/Title";
 
-function MainHeader() {
+function Header() {
   return (
     <div className="hidden lg:flex justify-between items-center px-3 py-3">
       <div className="flex-1 flex">
@@ -38,4 +38,4 @@ function MainHeader() {
   );
 }
 
-export default MainHeader;
+export default Header;

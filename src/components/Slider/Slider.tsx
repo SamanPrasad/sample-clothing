@@ -1,32 +1,28 @@
-import React, {
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./Slider.css";
-import { images } from "../../data/sliderImages";
+import { images, potraitImages } from "../../data/sliderImages";
 import arrowLeft from "../../assets/icons/arrow-left.svg";
 import arrowRight from "../../assets/icons/arrow-right.svg";
+import useViewWidth from "../../hooks/useViewWidth";
+import Loader from "./Loader";
 
 function Slider() {
   const [current, setCurrent] = useState(0);
   const [sliding, setStatus] = useState(false);
   const autoplayReference = useRef<number | null>(null);
+  const width = useViewWidth();
 
   const slide = useCallback(
     (action: "next" | "prev") => {
       setStatus(true);
-      const imagesCount = images.length;
+      const imagesCount = width > 768 ? images.length : potraitImages.length;
       if (action == "next") {
         setCurrent((prev) => (prev < imagesCount - 1 ? prev + 1 : 0));
       } else {
         setCurrent((prev) => (prev > 0 ? prev - 1 : imagesCount - 1));
       }
     },
-    [images.length]
+    [images.length, width, potraitImages.length]
   );
 
   const resetAutoplay = useCallback(() => {
@@ -34,7 +30,7 @@ function Slider() {
     autoplayReference.current = setTimeout(() => {
       slide("next");
     }, 5000);
-  }, [slide]);
+  }, [slide, width]);
 
   const manualNavigation = useCallback(
     (direction: "next" | "prev") => {
@@ -46,7 +42,7 @@ function Slider() {
   );
 
   const navigators = useMemo(() => {
-    return images.map((image, index) => (
+    return (width > 768 ? images : potraitImages).map((image, index) => (
       <div
         key={image.id}
         className={`navigate-item h-4 aspect-square rounded-2xl border-1 border-gray-500 cursor-pointer ${
@@ -59,20 +55,35 @@ function Slider() {
         }}
       ></div>
     ));
-  }, [images, current]);
+  }, [images, potraitImages, current, width]);
+
+  const handleSrc = () => {
+    if (width <= 768 && potraitImages.length - 1 < current) {
+      setCurrent(0);
+      return potraitImages[0].src;
+    } else if (width > 768 && images.length - 1 < current) {
+      setCurrent(0);
+      return images[0].src;
+    }
+    return (width > 768 ? images : potraitImages)[current].src;
+  };
 
   useEffect(() => {
     resetAutoplay();
-  }, [current]);
+  }, [current, width]);
+
+  if (width == 0) {
+    return <Loader />;
+  }
 
   return (
-    <div className="slider overflow-hidden group h-[40vw] relative">
+    <div className="w-full slider overflow-hidden group h-[130vw] md:h-[40vw] relative">
       <div className="sliders-container relative h-full">
         <img
           className={`slider-item current z-10 object-cover ${
             sliding ? "slide-fade" : ""
           }`}
-          src={images[current].src}
+          src={handleSrc()}
           onAnimationEnd={() => setStatus(false)}
         />
       </div>
@@ -80,13 +91,13 @@ function Slider() {
         <img
           src={arrowLeft}
           alt=""
-          className="slider-arrow -translate-x-20"
+          className="slider-arrow md:-translate-x-20"
           onClick={() => manualNavigation("prev")}
         />
         <img
           src={arrowRight}
           alt=""
-          className="slider-arrow translate-x-20"
+          className="slider-arrow md:translate-x-20"
           onClick={() => manualNavigation("next")}
         />
       </div>

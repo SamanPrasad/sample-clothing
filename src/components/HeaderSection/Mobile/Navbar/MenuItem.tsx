@@ -1,30 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Menu } from "../MainMenu/MenuItem/MenuItem";
 import { Link } from "react-router";
 import { IoIosArrowForward } from "react-icons/io";
 import * as motion from "motion/react-client";
-import { AnimatePresence, easeIn, easeInOut } from "motion/react";
-import { useSelector } from "react-redux";
-import type { RootStore } from "../../../../store/store";
+import { AnimatePresence, easeInOut } from "motion/react";
 
 interface Props {
   menuItem: Menu;
   delay: number;
+  menuOpen: boolean;
 }
 
-function MenuItem({ menuItem, delay }: Props) {
-  //used because otherwise MenuItem open status is not toggled because this is from outside of MenuItem
-  const menuOpen = useSelector((store: RootStore) => store.menu.open);
+function MenuItem({ menuItem, delay, menuOpen }: Props) {
   const [open, setOpen] = useState(false);
   const childrenRef = useRef<HTMLUListElement | null>(null);
 
   const variants = {
     visible: (val: number) => {
       return {
-        x: menuOpen ? 0 : -200,
+        x: menuOpen ? 0 : -300,
         transition: {
           delay: 0.1 * val,
-          duration: 0.7,
+          duration: 0.8,
           ease: easeInOut,
         },
       };
@@ -75,7 +72,7 @@ function MenuItem({ menuItem, delay }: Props) {
           >
             {menuItem.children &&
               menuItem.children.map((menu, index) => (
-                <MenuItem menuItem={menu} delay={index} />
+                <MenuItem menuItem={menu} delay={index} menuOpen={menuOpen} />
               ))}
           </motion.ul>
         )}

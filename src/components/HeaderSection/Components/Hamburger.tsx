@@ -1,19 +1,22 @@
-import React from "react";
 import * as motion from "motion/react-client";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootStore } from "../../../../store/store";
-import { toggle } from "../../../../store/menu/menuSlice";
 
-function Hamburger() {
-  const open = useSelector((store: RootStore) => store.menu.open);
-  const dispatch = useDispatch();
+interface Props {
+  open: boolean;
+  toggle: (status: boolean) => void;
+}
+
+function Hamburger({ open, toggle }: Props) {
+  console.log("open...", open);
   return (
     <svg
       className="w-full h-full"
       viewBox="0 0 30 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      onClick={() => dispatch(toggle())}
+      onClick={() => {
+        toggle(!open);
+        console.log("vvvvvv", open);
+      }}
     >
       <motion.g
         style={{

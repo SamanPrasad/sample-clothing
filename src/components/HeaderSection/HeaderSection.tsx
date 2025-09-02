@@ -1,11 +1,11 @@
-import Header from "./Header/Header";
-import Navbar from "./NavBar/Navbar";
+import MobileHeaderSection from "./Mobile/HeaderSection";
+import DesktopHeaderSection from "./Desktop/HeaderSection";
 
 function HeaderSection() {
   return (
-    <div>
-      <Header />
-      <Navbar />
+    <div className="w-full bg-white z-[98] top-0">
+      <MobileHeaderSection />
+      <DesktopHeaderSection />
     </div>
   );
 }

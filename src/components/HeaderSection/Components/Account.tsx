@@ -1,6 +1,3 @@
-import React from "react";
-import account from "../../../../assets/icons/account.svg";
-
 function Account() {
   return (
     <svg

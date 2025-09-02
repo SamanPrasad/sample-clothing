@@ -4,11 +4,16 @@ import Hamburger from "../Components/Hamburger";
 import SearchIcon from "../Components/Search/SearchIcon";
 import Title from "../Components/Title";
 
-function MobileHeader() {
+interface Props {
+  open: boolean;
+  toggle: (status: boolean) => void;
+}
+
+function Header({ open, toggle }: Props) {
   return (
-    <div className="lg:hidden flex">
-      <div className="w-16 flex-none p-2.5 pt-3.5 ps-3.5 box-border z-50">
-        <Hamburger />
+    <div className="lg:hidden flex h-12">
+      <div className="w-16 flex-none p-2.5 pt-3.5 ps-3.5 box-border">
+        <Hamburger open={open} toggle={(status: boolean) => toggle(status)} />
       </div>
       <div className="w-7 flex-none flex items-center">
         <SearchIcon />
@@ -26,4 +31,4 @@ function MobileHeader() {
   );
 }
 
-export default MobileHeader;
+export default Header;
