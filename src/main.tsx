@@ -11,6 +11,7 @@ import Product from "./pages/Product.tsx";
 import Categories from "./pages/Categories.tsx";
 import Products from "./pages/Products.tsx";
 import StoreProvider from "./store/StoreProvider.tsx";
+import Guard from "./components/Guard.tsx";
 const Collections = lazy(() => import("./pages/Collections.tsx"));
 
 const router = createBrowserRouter([
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+      },
+      {
+        path: "/guard",
+        element: <Guard />,
       },
       {
         path: "/categories",
