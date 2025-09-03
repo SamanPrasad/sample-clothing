@@ -1,6 +1,4 @@
 import * as motion from "motion/react-client";
-import { useSelector } from "react-redux";
-import type { RootStore } from "../../../../store/store";
 
 interface Props {
   open: boolean;

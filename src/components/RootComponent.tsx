@@ -1,5 +1,4 @@
-import "../App.css";
-import { Navigate, Outlet, useNavigate } from "react-router";
+import { Outlet } from "react-router";
 import HeaderSection from "./HeaderSection/HeaderSection";
 import Footer from "./Footer/Footer";
 import { useEffect } from "react";

@@ -1,4 +1,3 @@
-import React from "react";
 import masterCard from "../../../assets/icons/paymentMethods/mastercard.svg";
 import visa from "../../../assets/icons/paymentMethods/visa.svg";
 

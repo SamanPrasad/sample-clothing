@@ -1,4 +1,3 @@
-import React from "react";
 import categoriesImage from "../assets/categories.jpg";
 
 function Categories() {

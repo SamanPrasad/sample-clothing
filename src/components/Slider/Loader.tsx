@@ -1,4 +1,3 @@
-import React from "react";
 import LoaderAnimation from "./LoaderAnimation";
 
 function Loader() {

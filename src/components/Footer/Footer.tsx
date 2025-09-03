@@ -5,7 +5,6 @@ import Newsletter from "./Newsletter/Newsletter";
 import SocialMedia from "./SocialMedia/SocialMedia";
 import CopyRight from "./CopyRight/CopyRight";
 import PaymentMethods from "./PaymentMethods/PaymentMethods";
-import Accordion from "./Accordion/Accordion";
 import AccordionList from "./Accordion/AccordionsList";
 
 function Footer() {

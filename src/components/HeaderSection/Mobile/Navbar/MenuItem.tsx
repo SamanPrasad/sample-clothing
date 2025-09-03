@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import type { Menu } from "../MainMenu/MenuItem/MenuItem";
 import { Link } from "react-router";
 import { IoIosArrowForward } from "react-icons/io";
 import * as motion from "motion/react-client";
 import { AnimatePresence, easeInOut } from "motion/react";
+import type { Menu } from "../../Desktop/Navbar/MenuItem/MenuItem";
 
 interface Props {
   menuItem: Menu;

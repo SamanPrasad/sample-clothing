@@ -1,4 +1,3 @@
-import React from "react";
 import { AiFillInstagram, AiOutlineTikTok } from "react-icons/ai";
 import { GrFacebookOption } from "react-icons/gr";
 
