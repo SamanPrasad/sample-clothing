@@ -14,7 +14,6 @@ function Guard() {
     if (inputRef.current?.value == "loggedin") {
       dispatch(login());
     }
-    console.log("ggggg", inputRef.current?.value);
   };
 
   useEffect(() => {

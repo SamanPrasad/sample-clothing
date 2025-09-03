@@ -31,10 +31,7 @@ function MenuItem({ menu }: Props) {
       className={`${styles.menuItem} z-50 relative ${
         menu.level != 1 ? "px-1" : ""
       }`}
-      onMouseEnter={() => {
-        console.log("enter");
-        setOpenStatus(true);
-      }}
+      onMouseEnter={() => setOpenStatus(true)}
       onMouseLeave={() => {
         setOpenStatus(false);
         setOverflow(false);

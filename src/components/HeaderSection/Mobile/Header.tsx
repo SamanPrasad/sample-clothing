@@ -3,6 +3,7 @@ import Cart from "../Components/Cart";
 import Hamburger from "../Components/Hamburger";
 import SearchIcon from "../Components/Search/SearchIcon";
 import Title from "../Components/Title";
+import useShowHeader from "../../../hooks/useShowHeader";
 
 interface Props {
   open: boolean;
@@ -10,8 +11,14 @@ interface Props {
 }
 
 function Header({ open, toggle }: Props) {
+  const show = useShowHeader();
+
   return (
-    <div className="lg:hidden flex h-12">
+    <div
+      className={`lg:hidden sticky ${
+        show ? "top-0" : "-top-12"
+      } flex h-12 z-[99] bg-white duration-300`}
+    >
       <div className="w-16 flex-none p-2.5 pt-3.5 ps-3.5 box-border">
         <Hamburger open={open} toggle={(status: boolean) => toggle(status)} />
       </div>

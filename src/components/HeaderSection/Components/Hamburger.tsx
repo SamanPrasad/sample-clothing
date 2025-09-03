@@ -6,17 +6,13 @@ interface Props {
 }
 
 function Hamburger({ open, toggle }: Props) {
-  console.log("open...", open);
   return (
     <svg
       className="w-full h-full"
       viewBox="0 0 30 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      onClick={() => {
-        toggle(!open);
-        console.log("vvvvvv", open);
-      }}
+      onClick={() => toggle(!open)}
     >
       <motion.g
         style={{

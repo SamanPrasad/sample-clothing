@@ -3,10 +3,10 @@ import Navbar from "./Navbar/Navbar";
 
 function HeaderSection() {
   return (
-    <div>
+    <>
       <Header />
       <Navbar />
-    </div>
+    </>
   );
 }
 
