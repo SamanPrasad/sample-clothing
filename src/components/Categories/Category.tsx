@@ -1,5 +1,3 @@
-import * as motion from "motion/react-client";
-
 interface Props {
   data: {
     id: number;
