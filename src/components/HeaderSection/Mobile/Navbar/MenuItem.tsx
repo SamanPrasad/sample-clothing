@@ -9,9 +9,10 @@ interface Props {
   menuItem: Menu;
   delay: number;
   menuOpen: boolean;
+  toggle: () => void;
 }
 
-function MenuItem({ menuItem, delay, menuOpen }: Props) {
+function MenuItem({ menuItem, delay, menuOpen, toggle }: Props) {
   const [open, setOpen] = useState(false);
   const childrenRef = useRef<HTMLUListElement | null>(null);
 
@@ -45,7 +46,9 @@ function MenuItem({ menuItem, delay, menuOpen }: Props) {
       custom={delay}
     >
       <h1 className="flex justify-start items-center text-2xl font-normal">
-        <Link to={menuItem.uri}>{menuItem.menu}</Link>
+        <Link to={menuItem.uri} onClick={() => toggle()}>
+          {menuItem.menu}
+        </Link>
         {menuItem.children && (
           <IoIosArrowForward
             className={`mt-1 ms-6 transition-transform duration-300 ${
@@ -72,7 +75,12 @@ function MenuItem({ menuItem, delay, menuOpen }: Props) {
           >
             {menuItem.children &&
               menuItem.children.map((menu, index) => (
-                <MenuItem menuItem={menu} delay={index} menuOpen={menuOpen} />
+                <MenuItem
+                  menuItem={menu}
+                  delay={index}
+                  menuOpen={menuOpen}
+                  toggle={() => toggle()}
+                />
               ))}
           </motion.ul>
         )}

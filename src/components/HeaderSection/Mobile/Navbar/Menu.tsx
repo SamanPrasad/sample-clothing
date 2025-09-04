@@ -85,7 +85,12 @@ function Menu({ open, toggle }: Props) {
           <div className="content mt-10 px-5 ps-10 w-full">
             <ul>
               {menu.map((item, index) => (
-                <MenuItem menuItem={item} delay={index} menuOpen={open} />
+                <MenuItem
+                  menuItem={item}
+                  delay={index}
+                  menuOpen={open}
+                  toggle={() => toggle(false)}
+                />
               ))}
             </ul>
           </div>

@@ -1,9 +1,11 @@
+import CategoriesHomeList from "../components/Categories/CategoriesHomeList";
 import Slider from "../components/Slider/Slider";
 
 function Home() {
   return (
-    <div>
+    <div className="w-full">
       <Slider />
+      <CategoriesHomeList />
     </div>
   );
 }
