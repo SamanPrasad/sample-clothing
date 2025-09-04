@@ -8,7 +8,7 @@ import Title from "../Components/Title";
 
 function Header() {
   return (
-    <div className="hidden lg:flex justify-between items-center px-3 py-3">
+    <div className="hidden lg:flex justify-between items-center px-3 py-3 bg-white">
       <div className="flex-1 flex">
         <div className="flex-1 flex items-center">
           <Language />

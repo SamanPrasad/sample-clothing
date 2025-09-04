@@ -11,7 +11,7 @@ function Curve({ open }: Props) {
 
   return (
     <motion.svg
-      className="w-full h-full"
+      className="w-full h-full absolute left-0 top-0 -z-[100]"
       viewBox="0 0 50 50"
       preserveAspectRatio="none"
       fill="white"

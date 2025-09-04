@@ -31,7 +31,7 @@ function Header({ open, toggle }: Props) {
       <div className="w-7 flex-none me-1.5">
         <Account />
       </div>
-      <div className="min-w-7 mx-2 flex items-center">
+      <div className="min-w-7 mx-2 flex items-center pe-3.5">
         <Cart />
       </div>
     </div>

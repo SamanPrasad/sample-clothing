@@ -14,7 +14,17 @@ interface Props {
 
 function Menu({ open, toggle }: Props) {
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
   const width = useViewWidth();
+
+  useEffect(() => {
+    const handleMenuClose = () => {
+      toggle(false);
+    };
+    overlayRef.current?.addEventListener("click", handleMenuClose);
+    return () =>
+      overlayRef.current?.removeEventListener("click", handleMenuClose);
+  }, []);
 
   useEffect(() => {
     if (open) {
@@ -32,46 +42,57 @@ function Menu({ open, toggle }: Props) {
   }, [width]);
 
   return (
-    <motion.div
-      initial={{
-        x: -600,
-      }}
-      animate={{
-        x: open ? 0 : -600,
-      }}
-      transition={{
-        duration: 0.7,
-        ease: "easeInOut",
-      }}
-      ref={menuRef}
-      className="flex flex-col lg:hidden z-[99] fixed left-0 top-0 w-full h-full sm:w-3/5 md:w-2/5"
-    >
-      <div className="absolute w-full top-0 left-0">
-        <div className="w-16 flex-none p-2.5 pt-3.5 ps-3.5 box-border">
-          <Hamburger open={open} toggle={(status: boolean) => toggle(status)} />
+    <>
+      <div
+        ref={overlayRef}
+        className={`fixed ${
+          open ? "opacity-75" : "pointer-events-none opacity-0 delay-200"
+        } inset-0 w-full h-full bg-black z-[99] transition-opacity duration-700`}
+      ></div>
+      <motion.div
+        initial={{
+          x: -600,
+        }}
+        animate={{
+          x: open ? 0 : -600,
+        }}
+        transition={{
+          duration: 0.7,
+          ease: "easeInOut",
+        }}
+        ref={menuRef}
+        className="flex flex-col lg:hidden z-[99] fixed left-0 top-0 w-full h-full sm:w-3/5 md:w-2/5"
+      >
+        <div className="w-full">
+          <div className="w-16 flex-none p-2.5 pt-3.5 ps-3.5 box-border">
+            <Hamburger
+              open={open}
+              toggle={(status: boolean) => toggle(status)}
+            />
+          </div>
+          <motion.div
+            animate={{
+              x: open ? 0 : -300,
+            }}
+            transition={{
+              delay: open ? 0.3 : 0,
+              duration: 0.6,
+            }}
+            className="search mt-2 px-8 w-full"
+          >
+            <Search />
+          </motion.div>
+          <div className="content mt-10 px-5 ps-10 w-full">
+            <ul>
+              {menu.map((item, index) => (
+                <MenuItem menuItem={item} delay={index} menuOpen={open} />
+              ))}
+            </ul>
+          </div>
         </div>
-        <motion.div
-          animate={{
-            x: open ? 0 : -300,
-          }}
-          transition={{
-            delay: open ? 0.3 : 0,
-            duration: 0.6,
-          }}
-          className="search mt-2 px-8 w-full"
-        >
-          <Search />
-        </motion.div>
-        <div className="content mt-10 px-5 ps-10 w-full">
-          <ul>
-            {menu.map((item, index) => (
-              <MenuItem menuItem={item} delay={index} menuOpen={open} />
-            ))}
-          </ul>
-        </div>
-      </div>
-      <Curve open={open} />
-    </motion.div>
+        <Curve open={open} />
+      </motion.div>
+    </>
   );
 }
 
