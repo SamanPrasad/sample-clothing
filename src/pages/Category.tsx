@@ -1,13 +1,12 @@
 import { useParams } from "react-router";
 import PageTitle from "../components/PageTitle";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import NotFound from "../components/NotFound";
 import type { CategoryType } from "../types/category";
 import CategoryFilter from "../components/HeaderSection/Components/Filters/CategoryFilter";
 import SizeFilter from "../components/HeaderSection/Components/Filters/SizeFilter";
 import PrizeFilter from "../components/HeaderSection/Components/Filters/PrizeFilter";
 import ColorFilter from "../components/HeaderSection/Components/Filters/ColorFilter";
-import GridSwitcherIcon from "../components/GridSwitcherIcon";
 import ProductPreview from "../components/Products/ProductPreview";
 import { categories } from "../data/categories";
 import useViewWidth from "../hooks/useViewWidth";
