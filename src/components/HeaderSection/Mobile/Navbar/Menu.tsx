@@ -1,11 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import Curve from "./Curve";
 import * as motion from "motion/react-client";
 import menu from "../../../../data/menu";
 import MenuItem from "./MenuItem";
-import useViewWidth from "../../../../hooks/useViewWidth";
 import Hamburger from "../../Components/Hamburger";
 import Search from "../../Components/Search/Search";
+import { ViewWidthContext } from "@context/ViewWidthProvider";
 
 interface Props {
   open: boolean;
@@ -15,7 +15,7 @@ interface Props {
 function Menu({ open, toggle }: Props) {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
-  const width = useViewWidth();
+  const width = useContext(ViewWidthContext);
 
   useEffect(() => {
     const handleMenuClose = () => {

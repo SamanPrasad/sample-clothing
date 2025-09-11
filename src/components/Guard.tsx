@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/user/userSlice";
-import type { RootStore } from "../store/store";
 import { useNavigate } from "react-router";
+import type { RootStore } from "@store";
 
 function Guard() {
   const inputRef = useRef<HTMLInputElement | null>(null);

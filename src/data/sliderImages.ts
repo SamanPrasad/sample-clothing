@@ -1,12 +1,12 @@
-import banner01 from "../assets/slider/banner-01.jpg";
-import banner02 from "../assets/slider/banner-02.jpg";
-import banner03 from "../assets/slider/banner-03.jpg";
-import banner04 from "../assets/slider/banner-04.jpg";
-import banner05 from "../assets/slider/banner-05.jpg";
-import portrait01 from "../assets/slider/potrait-slider-01.jpg";
-import portrait02 from "../assets/slider/potrait-slider-02.jpg";
-import portrait03 from "../assets/slider/potrait-slider-03.jpg";
-import portrait04 from "../assets/slider/potrait-slider-04.jpg";
+import banner01 from "@assets/slider/banner-01.jpg";
+import banner02 from "@assets/slider/banner-02.jpg";
+import banner03 from "@assets/slider/banner-03.jpg";
+import banner04 from "@assets/slider/banner-04.jpg";
+import banner05 from "@assets/slider/banner-05.jpg";
+import portrait01 from "@assets/slider/potrait-slider-01.jpg";
+import portrait02 from "@assets/slider/potrait-slider-02.jpg";
+import portrait03 from "@assets/slider/potrait-slider-03.jpg";
+import portrait04 from "@assets/slider/potrait-slider-04.jpg";
 
 export const images = [
   {

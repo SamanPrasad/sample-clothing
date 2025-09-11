@@ -1,12 +1,13 @@
 import { Outlet } from "react-router";
-import HeaderSection from "./HeaderSection/HeaderSection";
-import Footer from "./Footer/Footer";
+import HeaderSection from "../HeaderSection/HeaderSection";
+import Footer from "../Footer/Footer";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import type { RootStore } from "../store/store";
-import Guard from "./Guard";
+import Guard from "../Guard";
+import type { RootStore } from "@store";
+import "./AppComponent.module.css";
 
-function RootComponent() {
+function AppComponent() {
   const userState = useSelector((store: RootStore) => store.user.status);
 
   useEffect(() => {
@@ -21,9 +22,9 @@ function RootComponent() {
     };
   }, []);
 
-  if (!userState) {
-    return <Guard />;
-  }
+  // if (!userState) {
+  //   return <Guard />;
+  // }
 
   return (
     <div>
@@ -34,4 +35,4 @@ function RootComponent() {
   );
 }
 
-export default RootComponent;
+export default AppComponent;

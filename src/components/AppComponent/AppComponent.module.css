@@ -1,3 +1,11 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --breakpoint-xs: 30rem;
+}
+
 .b1 {
   border: 1px solid red;
 }

@@ -1,23 +1,23 @@
 import { lazy, StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import Home from "./pages/Home.tsx";
+import Home from "./pages/home/Home.tsx";
 import Account from "./pages/Account.tsx";
 import Login from "./pages/Login.tsx";
 import Cart from "./pages/Cart.tsx";
 import ShopCategory from "./pages/ShopCategory.tsx";
 import Product from "./pages/Product.tsx";
-import Categories from "./pages/Categories.tsx";
 import Products from "./pages/Products.tsx";
-import StoreProvider from "./store/StoreProvider.tsx";
 import Guard from "./components/Guard.tsx";
-import Category from "./pages/Category.tsx";
+import AppProvider from "@context/AppProvider.tsx";
+import CategoryList from "@pages/categories/CategoryList.tsx";
+import Category from "@pages/categories/Category.tsx";
+
 const Collections = lazy(() => import("./pages/Collections.tsx"));
-import "./index.css";
 
 const router = createBrowserRouter([
   {
-    Component: StoreProvider,
+    Component: AppProvider,
     children: [
       {
         index: true,
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Categories />,
+            element: <CategoryList />,
           },
           {
             path: ":categorySlug",

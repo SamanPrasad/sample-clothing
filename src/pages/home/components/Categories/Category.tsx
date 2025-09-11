@@ -1,11 +1,11 @@
-import useCategoryLink from "../../hooks/useCategoryLink";
-import type { CategoryType } from "../../types/category";
+import type { CategoryType } from "@typings";
+import getCategoryLink from "@utils/getCategoryLink";
 
 interface Props {
   data: CategoryType;
 }
-function CategoriesHomeItem({ data }: Props) {
-  const uri = useCategoryLink(data);
+function Category({ data }: Props) {
+  const uri = getCategoryLink(data);
   return (
     <div className="flex justify-center group/main items-center w-full aspect-[0.8] relative">
       <div className="flex justify-center w-full h-full overflow-hidden relative group-hover/main:rotate-2 group-hover/main:duration-[3s] duration-150">
@@ -26,4 +26,4 @@ function CategoriesHomeItem({ data }: Props) {
   );
 }
 
-export default CategoriesHomeItem;
+export default Category;

@@ -5,7 +5,6 @@ interface Props {
 }
 
 function Curve({ open }: Props) {
-  // const open = useSelector((store: RootStore) => store.menu.open);
   const curve = "M0 0 V50 H30 C50 35 50 15 30 0 H0 Z";
   const line = "M0 0 V50 H50 C50 30 50 20 50 0 H0 Z";
 
