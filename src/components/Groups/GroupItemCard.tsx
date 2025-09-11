@@ -1,25 +1,25 @@
 import { Link } from "react-router";
-import type { CategoryType } from "../../types/category";
-import getCategoryLink from "@utils/getCategoryLink";
+import getCategoryLink from "@utils/getGroupItemLink";
+import type { GroupItem } from "@typings";
 
 interface Props {
-  data: CategoryType;
+  groupItem: GroupItem;
 }
 
-function ItemsGroupPreview({ data }: Props) {
-  const url = getCategoryLink(data);
+function GroupItemCard({ groupItem }: Props) {
+  const url = getCategoryLink(groupItem);
 
   return (
     <div className="w-full group relative perspective-[1000px]">
       <div className="front w-full transform-3d group-hover:rotate-y-180 backface-hidden duration-700">
         <Link to={url}>
           <img
-            src={data.img}
+            src={groupItem.img}
             className="image object-cover object-center w-full aspect-square"
           />
           <div className="title w-full mt-5">
             <h1 className="text-3xl font-bold uppercase text-center">
-              {data.title}
+              {groupItem.title}
             </h1>
           </div>
         </Link>
@@ -30,10 +30,12 @@ function ItemsGroupPreview({ data }: Props) {
             Shop Now
           </button>
         </Link>
-        <h2 className="mt-2 text-[#232323]">{data.products.length} Products</h2>
+        <h2 className="mt-2 text-[#232323]">
+          {groupItem.products.length} Products
+        </h2>
       </div>
     </div>
   );
 }
 
-export default ItemsGroupPreview;
+export default GroupItemCard;

@@ -3,28 +3,29 @@ import NotFound from "../NotFound";
 import PageTitle from "../PageTitle";
 import GridLayout from "../GridLayout/GridLayout";
 import Pagination from "../Pagination/Pagination";
-import type { Response } from "@typings";
 import CategoryFilter from "@components/Filters/CategoryFilter";
 import SizeFilter from "@components/Filters/SizeFilter";
 import PrizeFilter from "@components/Filters/PrizeFilter";
 import ColorFilter from "@components/Filters/ColorFilter";
-import ProductsList from "@components/Products/ProductsList";
+import ProductCardList from "./ProductCardList";
+import type { ProductResponse } from "@typings";
 
 type Props = {
-  data: Response | null;
+  products: ProductResponse | null;
   perPage: number;
+  title: string;
 };
 
-function ItemsGroup({ data, perPage }: Props) {
+function ProductList({ products, title, perPage }: Props) {
   const gridLayoutControls = useGridLayoutControls();
 
-  if (!data) {
+  if (!products) {
     return <NotFound message="Category Not Found" />;
   }
 
   return (
     <div>
-      <PageTitle title={data.category.title ?? ""} />
+      <PageTitle title={title} />
       <div className="filter hidden lg:flex justify-center">
         {[CategoryFilter, SizeFilter, PrizeFilter, ColorFilter].map(
           (Filter, index) => (
@@ -46,25 +47,25 @@ function ItemsGroup({ data, perPage }: Props) {
         <div className="hidden lg:felx">Pages</div>
         <div className="hidden lg:flex">Sort By</div>
       </div>
-      {data.products.length > 0 ? (
-        <ProductsList
+      {products.items.length > 0 ? (
+        <ProductCardList
           layout={gridLayoutControls.layout}
           grid={gridLayoutControls.grid}
-          products={data.products}
-          parent={data.category.title}
+          products={products.items}
+          parent={title}
         />
       ) : (
         <div className="py-10 text-2xl">
-          <h1>No data found. Please try resetting the filters</h1>
+          <h1>No products found. Please try resetting the filters</h1>
         </div>
       )}
 
-      {data.products.length > 0 && (
+      {products.items.length > 0 && (
         <div className="flex justify-center mb-20">
           <Pagination
             perPage={perPage}
-            pagesCount={data.pages}
-            total={data.total}
+            pagesCount={products.pages}
+            total={products.total}
           />
         </div>
       )}
@@ -72,4 +73,4 @@ function ItemsGroup({ data, perPage }: Props) {
   );
 }
 
-export default ItemsGroup;
+export default ProductList;

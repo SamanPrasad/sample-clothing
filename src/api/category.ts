@@ -1,9 +1,9 @@
 import { categories } from "@data/categories";
-import type { ProductType, Response } from "@typings";
+import type { GroupResponse, ProductType } from "@typings";
 
 export const getCategory = (slug: string, page: string, perPage: number) => {
   const category = categories.find((item) => item.slug == slug) ?? null;
-  const response = {} as Response;
+  const response = {} as GroupResponse;
 
   if (!category) {
     return null;
@@ -30,6 +30,6 @@ export const getCategory = (slug: string, page: string, perPage: number) => {
     response.current = pageNumber;
   }
 
-  response.category = category;
+  response.group = category;
   return response;
 };

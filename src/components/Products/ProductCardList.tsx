@@ -16,7 +16,7 @@ const gridClasses: Record<GridValueType, string> = {
   4: "grid-cols-4",
 };
 
-function ProductsList({ layout, grid, products, parent }: Props) {
+function ProductCardList({ layout, grid, products, parent }: Props) {
   const gridClass = layout == "vertical" ? "grid-cols-1" : gridClasses[grid];
 
   return (
@@ -28,4 +28,4 @@ function ProductsList({ layout, grid, products, parent }: Props) {
   );
 }
 
-export default ProductsList;
+export default ProductCardList;

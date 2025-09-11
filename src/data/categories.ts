@@ -11,6 +11,7 @@ export const categories = [
     title: "Category01",
     slug: "category-01",
     img: cat01,
+    groupType: "categories",
     products: [
       products[0],
       products[1],
@@ -72,6 +73,7 @@ export const categories = [
     title: "Category02",
     slug: "category-02",
     img: cat02,
+    groupType: "categories",
     products: [products[0], products[2]],
   },
   {
@@ -79,6 +81,7 @@ export const categories = [
     title: "Category03",
     slug: "category-03",
     img: cat03,
+    groupType: "categories",
     products: [products[0]],
   },
   {
@@ -86,6 +89,7 @@ export const categories = [
     title: "Category04",
     slug: "category-04",
     img: cat04,
+    groupType: "categories",
     products: [products[1], products[2]],
   },
   {
@@ -93,6 +97,7 @@ export const categories = [
     title: "Category05",
     slug: "category-05",
     img: cat05,
+    groupType: "categories",
     products: [],
   },
 ];
