@@ -22,9 +22,9 @@ function AppComponent() {
     };
   }, []);
 
-  // if (!userState) {
-  //   return <Guard />;
-  // }
+  if (!userState) {
+    return <Guard />;
+  }
 
   return (
     <div>
