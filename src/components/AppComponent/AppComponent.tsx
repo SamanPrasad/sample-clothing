@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Guard from "../Guard";
 import type { RootStore } from "@store";
-import "./AppComponent.module.css";
+import "./AppComponent.css";
 
 function AppComponent() {
   const userState = useSelector((store: RootStore) => store.user.status);
