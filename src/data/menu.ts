@@ -10,26 +10,6 @@ export default [
     menu: "Products",
     uri: "/products",
     level: 1,
-    children: [
-      {
-        id: 3,
-        menu: "Tops Tops Tops Tops",
-        uri: "/categories/tops",
-        level: 2,
-      },
-      {
-        id: 4,
-        menu: "Trousers",
-        uri: "/categories/trousers",
-        level: 2,
-      },
-      {
-        id: 5,
-        menu: "Trousers",
-        uri: "/categories/trousers",
-        level: 2,
-      },
-    ],
   },
   {
     id: 6,
@@ -39,14 +19,14 @@ export default [
     children: [
       {
         id: 7,
-        menu: "Tops Tops Tops Tops",
-        uri: "/categories/tops",
+        menu: "Category 01",
+        uri: "/categories/category-01",
         level: 2,
       },
       {
         id: 8,
-        menu: "Trousers",
-        uri: "/categories/trousers",
+        menu: "Category 02",
+        uri: "/categories/category-02",
         level: 2,
       },
     ],
