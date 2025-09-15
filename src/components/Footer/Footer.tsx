@@ -12,8 +12,8 @@ function Footer() {
     <div className="footer bg-[#232323] pt-5 pb-12">
       <div className="footer-naviation font-[Poppins] grid grid-cols-3 lg:grid-cols-5 text-white px-5 xl:px-[6vw] mb-20">
         <div className="hidden md:grid md:grid-cols-3 col-span-3 mt-5">
-          {footerData.map((menu) => (
-            <Menu menu={menu} />
+          {footerData.map((menu, index) => (
+            <Menu key={index} menu={menu} />
           ))}
         </div>
         <div className="md:hidden col-span-3">

@@ -76,6 +76,7 @@ function MenuItem({ menuItem, delay, menuOpen, toggle }: Props) {
             {menuItem.children &&
               menuItem.children.map((menu, index) => (
                 <MenuItem
+                  key={index}
                   menuItem={menu}
                   delay={index}
                   menuOpen={menuOpen}

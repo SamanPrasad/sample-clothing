@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import Guard from "../Guard";
 import type { RootStore } from "@store";
 import "./AppComponent.css";
+import { AnimatePresence } from "motion/react";
+import * as motion from "motion/react-client";
 
 function AppComponent() {
   const userState = useSelector((store: RootStore) => store.user.status);
@@ -27,11 +29,13 @@ function AppComponent() {
   }
 
   return (
-    <div>
-      <HeaderSection />
-      <Outlet />
-      <Footer />
-    </div>
+    <AnimatePresence>
+      <div>
+        <HeaderSection />
+        <Outlet />
+        <Footer />
+      </div>
+    </AnimatePresence>
   );
 }
 

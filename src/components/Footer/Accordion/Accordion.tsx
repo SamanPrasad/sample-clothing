@@ -62,8 +62,8 @@ function Accordion({ item }: { item: Item }) {
         }`}
         style={{ height: open ? height : 0 }}
       >
-        {item.children.map((menu) => (
-          <Link to={menu.uri} className="uppercase mb-3">
+        {item.children.map((menu, index) => (
+          <Link key={index} to={menu.uri} className="uppercase mb-3">
             {menu.title}
           </Link>
         ))}

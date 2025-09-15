@@ -11,7 +11,7 @@ import "./Slider.css";
 import { images, potraitImages } from "../../data/sliderImages";
 import arrowLeft from "../../assets/icons/arrow-left.svg";
 import arrowRight from "../../assets/icons/arrow-right.svg";
-import Loader from "./Loader";
+import Loader from "../Loader/Loader";
 import { ViewWidthContext } from "@context/ViewWidthProvider";
 
 function Slider() {

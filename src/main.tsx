@@ -6,7 +6,7 @@ import Account from "./pages/Account.tsx";
 import Login from "./pages/Login.tsx";
 import Cart from "./pages/Cart.tsx";
 import ShopCategory from "./pages/ShopCategory.tsx";
-import Product from "./pages/Product.tsx";
+import Product from "./pages/products/Product.tsx";
 import Products from "./pages/products/Products.tsx";
 import Guard from "./components/Guard.tsx";
 import AppProvider from "@context/AppProvider.tsx";

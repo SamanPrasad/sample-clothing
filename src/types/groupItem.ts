@@ -22,19 +22,14 @@ type GroupItemType = {
   slug: string;
 };
 
-export type GroupResponse = {
-  group: GroupItemType;
+export interface ProductResponse {
   products: ProductType[];
   total: number;
   pages: number;
   current: number;
   perPage: number;
-};
+}
 
-export type ProductResponse = {
-  items: ProductType[];
-  total: number;
-  pages: number;
-  current: number;
-  perPage: number;
-};
+export interface GroupResponse extends ProductResponse {
+  group: GroupItemType;
+}

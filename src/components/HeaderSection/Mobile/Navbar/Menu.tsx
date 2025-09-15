@@ -86,6 +86,7 @@ function Menu({ open, toggle }: Props) {
             <ul>
               {menu.map((item, index) => (
                 <MenuItem
+                  key={index}
                   menuItem={item}
                   delay={index}
                   menuOpen={open}

@@ -18,36 +18,31 @@ const getGridValue = (width: number) => {
 const gridOptions: {
   grid: GridValueType;
   layout: GridLayoutType;
-  classList: string;
+  classList?: string;
 }[] = [
   {
     grid: 3,
     layout: "vertical",
-    classList: "vertical h-10 cursor-pointer",
   },
   {
     grid: 1,
     layout: "horizontal",
-    classList:
-      "horizontal-cols-01 flex sm:hidden justify-center items-center h-8  rotate-90 cursor-pointer",
+    classList: "block sm:hidden",
   },
   {
     grid: 2,
     layout: "horizontal",
-    classList:
-      "horizontal-cols-2 hidden xs:flex justify-center items-center h-8 rotate-90 cursor-pointer",
+    classList: "hidden xs:block",
   },
   {
     grid: 3,
     layout: "horizontal",
-    classList:
-      "horizontal-cols-3 hidden md:flex justify-center items-center h-11 rotate-90 cursor-pointer",
+    classList: "hidden md:block",
   },
   {
     grid: 4,
     layout: "horizontal",
-    classList:
-      "horizontal-cols-4 hidden lg:flex justify-center items-center h-13 rotate-90 translate-x-3 cursor-pointer",
+    classList: "hidden lg:block",
   },
 ];
 
@@ -74,7 +69,7 @@ function GridLayout({ gridLayout }: Props) {
   }, [viewWidth]);
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center z-30">
       {gridOptions.map((gridItem, index) => {
         const isActive =
           gridItem.layout == "vertical"
@@ -88,10 +83,11 @@ function GridLayout({ gridLayout }: Props) {
             : { layout: gridItem.layout, gridValue: gridItem.grid };
 
         return (
-          <div key={index} className={gridItem.classList}>
+          <div key={index} className={`${gridItem.classList} mx-0.5`}>
             <GridSwitcherIcon
               bars={gridItem.grid}
               active={isActive}
+              layout={gridItem.layout}
               changeStatus={() => {
                 handleLayout(handleLayoutObject);
               }}

@@ -9,49 +9,105 @@ import PrizeFilter from "@components/Filters/PrizeFilter";
 import ColorFilter from "@components/Filters/ColorFilter";
 import ProductCardList from "./ProductCardList";
 import type { ProductResponse } from "@typings";
+import PerPage from "@components/PerPage";
+import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "react-router";
+import { getCategory } from "../../api/category";
+import { getProducts } from "../../api/products";
+import Loader from "@components/Loader/Loader";
+import useSavePerPage from "@hooks/useSavePerPage";
 
 type Props = {
-  products: ProductResponse | null;
-  perPage: number;
   title: string;
+  queryObj: {
+    type: "products" | "group";
+    groupName?: string;
+    groupItemname?: string;
+  };
 };
 
-function ProductList({ products, title, perPage }: Props) {
+const filtersList = [CategoryFilter, SizeFilter, PrizeFilter, ColorFilter];
+
+function ProductList({ title, queryObj }: Props) {
   const gridLayoutControls = useGridLayoutControls();
+  const [searchParams] = useSearchParams();
+  const { perPage, setPerPage } = useSavePerPage();
+  const [products, setProducts] = useState<ProductResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setLoading(true);
+    if (queryObj.type == "group") {
+      const category = getCategory(
+        queryObj.groupItemname!,
+        searchParams.get("page") ?? "1",
+        perPage
+      );
+      setProducts(category);
+    } else {
+      setProducts(getProducts(searchParams.get("page") ?? "1", perPage));
+    }
+    setLoading(false);
+    scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [searchParams, perPage, queryObj]);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   if (!products) {
-    return <NotFound message="Category Not Found" />;
+    return (
+      <NotFound
+        message={`No ${title.charAt(0).toUpperCase()}${title
+          .slice(1)
+          .toLowerCase()} Found`}
+      />
+    );
   }
 
   return (
     <div>
       <PageTitle title={title} />
       <div className="filter hidden lg:flex justify-center">
-        {[CategoryFilter, SizeFilter, PrizeFilter, ColorFilter].map(
-          (Filter, index) => (
-            <div key={index} className="w-[15%] mx-2.5">
-              <Filter />
-            </div>
-          )
-        )}
+        {filtersList.map((Filter, index) => {
+          if (queryObj.groupName == "categories") {
+            if (Filter != CategoryFilter)
+              return (
+                <div key={index} className="w-[15%] mx-2.5">
+                  <Filter />
+                </div>
+              );
+          } else {
+            return (
+              <div key={index} className="w-[15%] mx-2.5">
+                <Filter />
+              </div>
+            );
+          }
+        })}
       </div>
-      <div className="w-full flex justify-center mt-10 lg:mt-20">
-        <div className="flex justify-center items-center w-full">
-          <div className="flex items-center">
-            <h1 className="uppercase me-4 text-sm font-semibold font-[Poppins]">
-              View as
-            </h1>
-          </div>
-          <GridLayout gridLayout={gridLayoutControls} />
+      <div
+        ref={scrollRef}
+        className="w-full flex flex-col justify-center items-center pt-10 lg:mt-20"
+      >
+        <div className="flex items-center">
+          <h1 className="uppercase text-sm font-semibold font-[Poppins]">
+            View as
+          </h1>
         </div>
-        <div className="hidden lg:felx">Pages</div>
-        <div className="hidden lg:flex">Sort By</div>
+        <div className="relative flex flex-col justify-center items-center w-full mt-1">
+          <GridLayout gridLayout={gridLayoutControls} />
+          <div className="relative xs:absolute flex w-full justify-center xs:justify-end xs:pe-5 mt-2.5 xs:mt-0">
+            <PerPage perPage={perPage} setPerPage={setPerPage} />
+          </div>
+        </div>
       </div>
-      {products.items.length > 0 ? (
+      {products.products.length > 0 ? (
         <ProductCardList
           layout={gridLayoutControls.layout}
           grid={gridLayoutControls.grid}
-          products={products.items}
+          products={products.products}
           parent={title}
         />
       ) : (
@@ -60,7 +116,7 @@ function ProductList({ products, title, perPage }: Props) {
         </div>
       )}
 
-      {products.items.length > 0 && (
+      {products.products.length > 0 && (
         <div className="flex justify-center mb-20">
           <Pagination
             perPage={perPage}

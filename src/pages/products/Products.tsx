@@ -1,22 +1,25 @@
 import ProductList from "@components/Products/ProductList";
-import type { ProductResponse } from "@typings";
-import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
-import { getProducts } from "../../api/products";
+import { AnimatePresence } from "motion/react";
+import * as motion from "motion/react-client";
+import { useLocation } from "react-router";
 
 function Products() {
-  const { categorySlug } = useParams();
-  const [searchParams] = useSearchParams();
-  const [products, setproducts] = useState<ProductResponse | null>(null);
-  const [perPage] = useState(5);
-
-  useEffect(() => {
-    setproducts(getProducts(searchParams.get("page") ?? "1", perPage));
-  }, [searchParams, perPage, categorySlug]);
+  const location = useLocation();
   return (
-    <div>
-      <ProductList products={products} title="products" perPage={3} />
-    </div>
+    <motion.div
+      key={location.pathname}
+      initial={{ x: "-100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100%" }}
+      transition={{
+        type: "spring",
+        stiffness: 1000,
+        damping: 120,
+        mass: 20,
+      }}
+    >
+      <ProductList queryObj={{ type: "products" }} title="products" />
+    </motion.div>
   );
 }
 

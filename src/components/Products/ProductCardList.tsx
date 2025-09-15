@@ -1,6 +1,7 @@
 import type { GridLayoutType, GridValueType } from "@typings";
 import type { ProductType } from "@typings";
 import ProductCard from "./ProductCard";
+import NotFound from "@components/NotFound";
 
 type Props = {
   layout: GridLayoutType;
@@ -19,10 +20,19 @@ const gridClasses: Record<GridValueType, string> = {
 function ProductCardList({ layout, grid, products, parent }: Props) {
   const gridClass = layout == "vertical" ? "grid-cols-1" : gridClasses[grid];
 
+  if (!products) {
+    return <NotFound message="No Product Found" />;
+  }
+
   return (
     <div className={`w-full grid ${gridClass}  gap-7 mb-18 px-4 mt-10`}>
-      {products.map((item) => (
-        <ProductCard product={item} parent={parent} layout={layout} />
+      {products.map((item, index) => (
+        <ProductCard
+          key={index}
+          product={item}
+          parent={parent}
+          layout={layout}
+        />
       ))}
     </div>
   );

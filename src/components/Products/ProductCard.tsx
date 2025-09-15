@@ -47,7 +47,10 @@ function ProductCard({ product, parent, layout }: Props) {
         <div className="absolute text-center text-xs font-[Poppins] left-0 top-0 w-12 py-1 bg-white z-30">
           <span>New</span>
         </div>
-        <a href={`/${product.slug}`} className="absolute w-full h-full z-20" />
+        <a
+          href={`/products/${product.slug}`}
+          className="absolute w-full h-full z-20"
+        />
       </div>
       <div className={`${isHorizontal ? "mb-10 mt-4" : " ms-8 flex-auto"}`}>
         <h1

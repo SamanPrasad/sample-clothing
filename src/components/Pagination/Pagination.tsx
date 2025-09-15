@@ -26,7 +26,7 @@ function Pagination({ perPage, pagesCount, total }: Props) {
           : parsePageParam;
       setCurrentPage(page);
     }
-  }, []);
+  }, [perPage]);
 
   return (
     <div className="flex flex-col justify-center items-center">

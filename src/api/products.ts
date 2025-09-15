@@ -25,7 +25,7 @@ export const getProducts = (page: string, perPage: number) => {
       })
       .filter((item) => item) as ProductType[];
 
-    response.items = items;
+    response.products = items;
     response.current = pageNumber;
   }
 

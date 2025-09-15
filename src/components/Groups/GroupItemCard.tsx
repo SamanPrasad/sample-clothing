@@ -1,13 +1,13 @@
 import { Link } from "react-router";
-import getCategoryLink from "@utils/getGroupItemLink";
 import type { GroupItem } from "@typings";
+import getGroupItemLink from "@utils/getGroupItemLink";
 
 interface Props {
   groupItem: GroupItem;
 }
 
 function GroupItemCard({ groupItem }: Props) {
-  const url = getCategoryLink(groupItem);
+  const url = getGroupItemLink(groupItem);
 
   return (
     <div className="w-full group relative perspective-[1000px]">
