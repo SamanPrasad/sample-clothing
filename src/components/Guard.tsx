@@ -24,6 +24,9 @@ function Guard() {
     <div>
       <input ref={inputRef} type="text" placeholder="Type your password here" />
       <button onClick={handleLogin}>Login</button>
+      <h1 className="text-red-600 text-5xl">
+        This is totally for educational and practice purpose
+      </h1>
     </div>
   );
 }
