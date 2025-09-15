@@ -1,8 +1,5 @@
 import { categories } from "@data/categories";
 import CategoriesHomeItem from "./Category";
-import { AnimatePresence } from "motion/react";
-import * as motion from "motion/react-client";
-import { useLocation } from "react-router";
 
 function CategoryList() {
   return (

@@ -1,5 +1,4 @@
 import ProductList from "@components/Products/ProductList";
-import { AnimatePresence } from "motion/react";
 import * as motion from "motion/react-client";
 import { useLocation } from "react-router";
 
