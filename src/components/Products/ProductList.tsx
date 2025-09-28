@@ -5,12 +5,12 @@ import GridLayout from "../GridLayout/GridLayout";
 import Pagination from "../Pagination/Pagination";
 import CategoryFilter from "@components/Filters/CategoryFilter";
 import SizeFilter from "@components/Filters/SizeFilter";
-import PrizeFilter from "@components/Filters/PrizeFilter";
+import PrizeFilter from "@components/Filters/PrizeFilter/PrizeFilter";
 import ColorFilter from "@components/Filters/ColorFilter";
 import ProductCardList from "./ProductCardList";
 import type { ProductResponse } from "@typings";
 import PerPage from "@components/PerPage";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ComponentType } from "react";
 import { useSearchParams } from "react-router";
 import { getCategory } from "../../api/category";
 import { getProducts } from "../../api/products";
@@ -20,9 +20,8 @@ import useSavePerPage from "@hooks/useSavePerPage";
 type Props = {
   title: string;
   queryObj: {
-    type: "products" | "group";
-    groupName?: string;
-    groupItemname?: string;
+    type: "products" | "categories" | "collections";
+    typeItem?: string;
   };
 };
 
@@ -36,11 +35,23 @@ function ProductList({ title, queryObj }: Props) {
   const [loading, setLoading] = useState(true);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
+  const generateFilter = (Filter: ComponentType<any>, index: number) => {
+    return (
+      <div key={index} className="w-[15%] mx-2.5">
+        {Filter == ColorFilter || Filter == SizeFilter ? (
+          <Filter products={products?.products ?? []} />
+        ) : (
+          <Filter />
+        )}
+      </div>
+    );
+  };
+
   useEffect(() => {
     setLoading(true);
-    if (queryObj.type == "group") {
+    if (queryObj.type == "categories") {
       const category = getCategory(
-        queryObj.groupItemname!,
+        queryObj.typeItem!,
         searchParams.get("page") ?? "1",
         perPage
       );
@@ -69,21 +80,12 @@ function ProductList({ title, queryObj }: Props) {
   return (
     <div>
       <PageTitle title={title} />
-      <div className="filter hidden lg:flex justify-center">
+      <div className="filter hidden lg:flex justify-center z-40">
         {filtersList.map((Filter, index) => {
-          if (queryObj.groupName == "categories") {
-            if (Filter != CategoryFilter)
-              return (
-                <div key={index} className="w-[15%] mx-2.5">
-                  <Filter />
-                </div>
-              );
+          if (queryObj.type == "categories") {
+            if (Filter != CategoryFilter) return generateFilter(Filter, index);
           } else {
-            return (
-              <div key={index} className="w-[15%] mx-2.5">
-                <Filter />
-              </div>
-            );
+            return generateFilter(Filter, index);
           }
         })}
       </div>

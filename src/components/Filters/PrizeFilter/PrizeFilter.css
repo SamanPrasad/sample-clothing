@@ -1,0 +1,27 @@
+.slider {
+  pointer-events: none;
+}
+
+.slider::-webkit-slider-runnable-track,
+.slider::-moz-range-track {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 6px;
+  background: transparent;
+}
+
+.slider::-webkit-slider-thumb,
+.slider::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-color: transparent;
+  border-radius: 50%;
+  background: #232323;
+  cursor: pointer;
+  margin-top: -6px;
+  pointer-events: all;
+  z-index: 2;
+}

@@ -8,9 +8,8 @@ function Category() {
     <div>
       <ProductList
         queryObj={{
-          type: "group",
-          groupName: "categories",
-          groupItemname: categorySlug,
+          type: "categories",
+          typeItem: categorySlug,
         }}
         title="Categories"
       />

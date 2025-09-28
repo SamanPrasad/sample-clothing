@@ -2,6 +2,8 @@ import type { GridLayoutType, GridValueType } from "@typings";
 import type { ProductType } from "@typings";
 import ProductCard from "./ProductCard";
 import NotFound from "@components/NotFound";
+import * as motion from "motion/react-client";
+import { AnimatePresence } from "motion/react";
 
 type Props = {
   layout: GridLayoutType;
@@ -26,14 +28,19 @@ function ProductCardList({ layout, grid, products, parent }: Props) {
 
   return (
     <div className={`w-full grid ${gridClass}  gap-7 mb-18 px-4 mt-10`}>
-      {products.map((item, index) => (
-        <ProductCard
-          key={index}
-          product={item}
-          parent={parent}
-          layout={layout}
-        />
-      ))}
+      <AnimatePresence>
+        {products.map((item) => (
+          <motion.div
+            layout
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            key={item.id}
+          >
+            <ProductCard product={item} parent={parent} layout={layout} />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 }

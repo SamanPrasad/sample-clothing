@@ -7,7 +7,7 @@ type Props = {
   setPerPage: (page: number) => void;
 };
 
-const perPageList = [5, 10, 15, 20, 25];
+const perPageList = [1, 2, 3, 5, 10, 15, 20, 25];
 
 function PerPage({ perPage, setPerPage }: Props) {
   const [open, setOpenStatus] = useState(false);

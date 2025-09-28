@@ -1,4 +1,3 @@
-import { Outlet } from "react-router";
 import HeaderSection from "../HeaderSection/HeaderSection";
 import Footer from "../Footer/Footer";
 import { useEffect } from "react";
@@ -6,7 +5,7 @@ import { useSelector } from "react-redux";
 import Guard from "../Guard";
 import type { RootStore } from "@store";
 import "./AppComponent.css";
-import { AnimatePresence } from "motion/react";
+import AnimatedOutlet from "@components/AnimatedOutlet";
 
 function AppComponent() {
   const userState = useSelector((store: RootStore) => store.user.status);
@@ -28,13 +27,13 @@ function AppComponent() {
   }
 
   return (
-    <AnimatePresence>
-      <div>
-        <HeaderSection />
-        <Outlet />
-        <Footer />
+    <div>
+      <HeaderSection />
+      <div className="relative overflow-hidden">
+        <AnimatedOutlet />
       </div>
-    </AnimatePresence>
+      <Footer />
+    </div>
   );
 }
 

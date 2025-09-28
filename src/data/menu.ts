@@ -29,6 +29,24 @@ export default [
         uri: "/categories/category-02",
         level: 2,
       },
+      {
+        id: 22,
+        menu: "Category 03",
+        uri: "/categories/category-03",
+        level: 2,
+      },
+      {
+        id: 23,
+        menu: "Category 04",
+        uri: "/categories/category-04",
+        level: 2,
+      },
+      {
+        id: 24,
+        menu: "Category 05",
+        uri: "/categories/category-05",
+        level: 2,
+      },
     ],
   },
   {
