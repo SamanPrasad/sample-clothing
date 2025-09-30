@@ -1,24 +1,16 @@
-import {
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./Slider.css";
 import { images, potraitImages } from "../../data/sliderImages";
 import arrowLeft from "../../assets/icons/arrow-left.svg";
 import arrowRight from "../../assets/icons/arrow-right.svg";
 import Loader from "../Loader/Loader";
-import { ViewWidthContext } from "@context/ViewWidthProvider";
+import { useViewWidth } from "@hooks/useViewWidth";
 
 function Slider() {
   const [current, setCurrent] = useState(0);
   const [sliding, setStatus] = useState(false);
   const autoplayReference = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const width = useContext(ViewWidthContext);
+  const width = useViewWidth();
 
   const slide = useCallback(
     (action: "next" | "prev") => {

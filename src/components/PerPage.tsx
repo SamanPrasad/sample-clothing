@@ -18,8 +18,8 @@ function PerPage({ perPage, setPerPage }: Props) {
   };
 
   return (
-    <div className="flex flex-col xs:flex-row justify-center items-center bg-white z-30">
-      <label className="font-[Poppins] text-xs font-medium uppercase text-[#505050] mb-1.5 xs:mb-0 xs:me-2.5">
+    <div className="flex flex-col justify-center items-center bg-white translate-y-0 xs:-translate-y-3 z-30">
+      <label className="font-[Poppins] text-xs font-medium uppercase text-[#505050] mb-1.5">
         items per page
       </label>
       <div className="relative flex flex-col w-20">

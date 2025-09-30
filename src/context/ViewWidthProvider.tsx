@@ -5,7 +5,7 @@ import {
   type PropsWithChildren,
 } from "react";
 
-export const ViewWidthContext = createContext(0);
+export const ViewWidthContext = createContext<number | null>(null);
 
 function ViewWidthProvider({ children }: PropsWithChildren) {
   const [width, setWidth] = useState<number>(0);

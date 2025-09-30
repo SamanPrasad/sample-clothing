@@ -1,11 +1,13 @@
-import { useContext, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Curve from "./Curve";
 import * as motion from "motion/react-client";
 import menu from "../../../../data/menu";
 import MenuItem from "./MenuItem";
 import Hamburger from "../../Components/Hamburger";
 import Search from "../../Components/Search/Search";
-import { ViewWidthContext } from "@context/ViewWidthProvider";
+import Overlay from "@components/Overlay";
+import { useViewWidth } from "@hooks/useViewWidth";
+import { useLockBodyScroll } from "@hooks/useLockBodyScroll";
 
 interface Props {
   open: boolean;
@@ -14,25 +16,8 @@ interface Props {
 
 function Menu({ open, toggle }: Props) {
   const menuRef = useRef<HTMLDivElement | null>(null);
-  const overlayRef = useRef<HTMLDivElement | null>(null);
-  const width = useContext(ViewWidthContext);
-
-  useEffect(() => {
-    const handleMenuClose = () => {
-      toggle(false);
-    };
-    overlayRef.current?.addEventListener("click", handleMenuClose);
-    return () =>
-      overlayRef.current?.removeEventListener("click", handleMenuClose);
-  }, []);
-
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  }, [open]);
+  const width = useViewWidth();
+  useLockBodyScroll(open);
 
   //close mobile menu when view port get larger
   useEffect(() => {
@@ -43,12 +28,7 @@ function Menu({ open, toggle }: Props) {
 
   return (
     <>
-      <div
-        ref={overlayRef}
-        className={`fixed ${
-          open ? "opacity-75" : "pointer-events-none opacity-0 delay-200"
-        } inset-0 w-full h-full bg-black z-[99] transition-opacity duration-700`}
-      ></div>
+      <Overlay openStatus={open} close={() => toggle(false)} />
       <motion.div
         initial={{
           x: -600,

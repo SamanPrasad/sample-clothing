@@ -1,10 +1,38 @@
+import { products } from "@data/products";
 import type { RootStore } from "@store";
-import { useSelector } from "react-redux";
+import { setCart } from "@store/cart/cartSlice";
+import type { CartItem, LocalStorageCartItem } from "@typings";
+import { getLocalStorageCartItems } from "@utils/getFromLocalStorage";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function Cart() {
-  const count = useSelector((store: RootStore) => store.cart.count);
+  const items = useSelector((store: RootStore) => store.cart.products);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    //API calls for loggedin users
+    //Local Storage for guest uses
+    const storedItems: LocalStorageCartItem[] =
+      getLocalStorageCartItems("cart");
+    const storedItemsIds = storedItems.map(
+      (item: LocalStorageCartItem) => item.id
+    );
+    const productsList: CartItem[] = products
+      .filter((product) => storedItemsIds.includes(product.id))
+      .map((product) => {
+        return {
+          product,
+          color:
+            storedItems.find((item) => item.id == product.id)?.color || "black",
+          size: storedItems.find((item) => item.id == product.id)?.size || "XL",
+        };
+      });
+
+    dispatch(setCart(productsList));
+  }, []);
   return (
-    <div className="p-0 pt-2 relative">
+    <div className="p-0 pt-2 relative cursor-pointer">
       <svg
         width="24"
         height="24"
@@ -36,7 +64,7 @@ function Cart() {
         />
       </svg>
       <p className="absolute min-w-5 p-0.5 top-0 -right-1.5 text-xs bg-red-700 text-white aspect-square rounded-full flex justify-center items-center">
-        {count}
+        {items.length}
       </p>
     </div>
   );

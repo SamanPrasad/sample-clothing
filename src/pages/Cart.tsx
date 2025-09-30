@@ -1,11 +1,11 @@
-import { useDispatch } from "react-redux";
-import { addToCart } from "../store/cart/cartSlice";
+// import { useDispatch } from "react-redux";
+// import { addToCart } from "../store/cart/cartSlice";
 
 function Cart() {
-  const dispath = useDispatch();
+  // const dispath = useDispatch();
   return (
     <div>
-      <button onClick={() => dispath(addToCart())}>Add To Cart</button>
+      {/* <button onClick={() => dispath(addToCart())}>Add To Cart</button> */}
     </div>
   );
 }

@@ -1,8 +1,8 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import GridSwitcherIcon from "./GridSwitcherIcon";
 import type { GridLayoutProps } from "../../hooks/useGridLayoutControls";
 import type { GridLayoutType, GridValueType } from "@typings";
-import { ViewWidthContext } from "@context/ViewWidthProvider";
+import { useViewWidth } from "@hooks/useViewWidth";
 
 type Props = {
   gridLayout: GridLayoutProps;
@@ -46,8 +46,8 @@ const gridOptions: {
   },
 ];
 
-function GridLayout({ gridLayout }: Props) {
-  const viewWidth = useContext(ViewWidthContext);
+function GridSwitcher({ gridLayout }: Props) {
+  const viewWidth = useViewWidth();
 
   const handleLayout = useCallback(
     ({
@@ -69,7 +69,7 @@ function GridLayout({ gridLayout }: Props) {
   }, [viewWidth]);
 
   return (
-    <div className="flex justify-center items-center z-30">
+    <div className="flex justify-center items-center my-2.5 xs:my-0 z-30">
       {gridOptions.map((gridItem, index) => {
         const isActive =
           gridItem.layout == "vertical"
@@ -99,4 +99,4 @@ function GridLayout({ gridLayout }: Props) {
   );
 }
 
-export default GridLayout;
+export default GridSwitcher;

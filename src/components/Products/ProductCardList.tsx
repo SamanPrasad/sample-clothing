@@ -1,9 +1,9 @@
 import type { GridLayoutType, GridValueType } from "@typings";
 import type { ProductType } from "@typings";
-import ProductCard from "./ProductCard";
 import NotFound from "@components/NotFound";
 import * as motion from "motion/react-client";
 import { AnimatePresence } from "motion/react";
+import ProductCard from "./ProductCard";
 
 type Props = {
   layout: GridLayoutType;

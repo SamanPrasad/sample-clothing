@@ -32,6 +32,7 @@
       "@hooks/*": ["src/hooks/*"],
       "@context/*": ["src/context/*"],
       "@store": ["src/store"],
+      "@store/*": ["src/store/*"],
       "@pages/*": ["src/pages/*"]
     }
   },
