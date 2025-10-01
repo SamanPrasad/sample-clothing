@@ -1,18 +1,19 @@
 import * as motion from "motion/react-client";
+import type { Dispatch, SetStateAction } from "react";
 
 interface Props {
-  open: boolean;
-  toggle: (status: boolean) => void;
+  openState: boolean;
+  setOpenState: Dispatch<SetStateAction<boolean>>;
 }
 
-function Hamburger({ open, toggle }: Props) {
+function Hamburger({ openState, setOpenState }: Props) {
   return (
     <svg
-      className="w-full h-full"
+      className="w-full h-full cursor-pointer"
       viewBox="0 0 30 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      onClick={() => toggle(!open)}
+      onClick={() => setOpenState((prev) => !prev)}
     >
       <motion.g
         style={{
@@ -23,7 +24,7 @@ function Hamburger({ open, toggle }: Props) {
       >
         <motion.path
           animate={{
-            rotate: open ? -37 : 0,
+            rotate: openState ? -37 : 0,
             originX: 1,
             originY: 1,
           }}
@@ -37,13 +38,13 @@ function Hamburger({ open, toggle }: Props) {
             d: "M1.5 7.32H21.5",
           }}
           animate={{
-            d: open ? "M15 7.32H15" : "M1.5 7.32H21.5",
-            strokeWidth: open ? 0 : 2,
+            d: openState ? "M15 7.32H15" : "M1.5 7.32H21.5",
+            strokeWidth: openState ? 0 : 2,
           }}
         />
         <motion.path
           animate={{
-            rotate: open ? 37 : 0,
+            rotate: openState ? 37 : 0,
             originX: 1,
             originY: 1,
           }}

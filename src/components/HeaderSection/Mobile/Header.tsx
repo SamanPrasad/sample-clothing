@@ -4,13 +4,11 @@ import Hamburger from "../Components/Hamburger";
 import SearchIcon from "../Components/Search/SearchIcon";
 import Title from "../Components/Title";
 import useShowHeader from "../../../hooks/useShowHeader";
+import Menu from "./Navbar/Menu";
+import { useState } from "react";
 
-interface Props {
-  open: boolean;
-  toggle: (status: boolean) => void;
-}
-
-function Header({ open, toggle }: Props) {
+function Header() {
+  const [openState, setOpenState] = useState(false);
   const show = useShowHeader();
 
   return (
@@ -20,7 +18,8 @@ function Header({ open, toggle }: Props) {
       } flex h-12 z-[99] bg-white duration-300`}
     >
       <div className="w-16 flex-none p-2.5 pt-3.5 ps-3.5 box-border">
-        <Hamburger open={open} toggle={(status: boolean) => toggle(status)} />
+        <Hamburger openState={openState} setOpenState={setOpenState} />
+        <Menu openState={openState} setOpenState={setOpenState} />
       </div>
       <div className="w-7 flex-none flex items-center">
         <SearchIcon />

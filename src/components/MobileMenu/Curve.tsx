@@ -1,10 +1,10 @@
 import * as motion from "motion/react-client";
 
 interface Props {
-  open: boolean;
+  openState: boolean;
 }
 
-function Curve({ open }: Props) {
+function Curve({ openState }: Props) {
   const curve = "M0 0 V50 H30 C50 35 50 15 30 0 H0 Z";
   const line = "M0 0 V50 H50 C50 30 50 20 50 0 H0 Z";
 
@@ -19,10 +19,10 @@ function Curve({ open }: Props) {
       <motion.path
         d={curve}
         animate={{
-          d: open ? line : curve,
+          d: openState ? line : curve,
         }}
         transition={{
-          delay: open ? 0.3 : 0,
+          delay: openState ? 0.3 : 0,
           duration: 0.5,
           ease: "easeInOut",
         }}

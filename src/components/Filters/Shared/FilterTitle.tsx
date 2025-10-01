@@ -1,6 +1,6 @@
 type Props = {
   title: string;
-  selectedList?: undefined | Set<number> | Set<string>;
+  selectedList?: null | Set<number> | Set<string>;
 };
 
 function FilterTitle({ title, selectedList }: Props) {

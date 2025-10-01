@@ -1,23 +1,46 @@
 import type { ProductType } from "@typings";
-import { IoIosArrowUp } from "react-icons/io";
-import FilterTitle from "../StateComponents/FilterTitle";
 import ColorMenu from "./ColorMenu";
 import { useProductsContext } from "@hooks/useProductContext";
+import { useState } from "react";
+import DesktopFilterHead from "../Shared/FilterHead/Desktop";
+import MobileFilterHead from "../Shared/FilterHead/Mobile";
 
 type Props = {
   products?: ProductType[];
 };
 
 function ColorFilter({ products = [] }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
   const { selectedColors } = useProductsContext();
 
   return (
-    <div className="relative group z-50">
-      <div className="flex justify-between w-full border border-[#23232354] px-4 py-2">
-        <FilterTitle title="color" selectedList={selectedColors} />
-        <IoIosArrowUp className="mt-0.5 opacity-50 group-hover:rotate-180 duration-300" />
+    <div className="relative w-full z-50">
+      <div
+        className="hidden lg:flex w-full"
+        onMouseOver={() => setIsOpen(true)}
+        onMouseOut={() => setIsOpen(false)}
+      >
+        <DesktopFilterHead
+          title="color"
+          isOpen={isOpen}
+          selectedList={selectedColors}
+        />
+        <ColorMenu
+          products={products}
+          isOpen={isOpen}
+          cssClasses="absolute shadow-theme"
+        />
       </div>
-      <ColorMenu products={products} />
+      <div className="flex flex-col lg:hidden w-full">
+        <div className="w-full" onClick={() => setIsOpen((prev) => !prev)}>
+          <MobileFilterHead
+            title="color"
+            isOpen={isOpen}
+            selectedList={selectedColors}
+          />
+        </div>
+        <ColorMenu products={products} isOpen={isOpen} />
+      </div>
     </div>
   );
 }

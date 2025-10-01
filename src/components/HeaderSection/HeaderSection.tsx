@@ -1,10 +1,10 @@
-import MobileHeaderSection from "./Mobile/HeaderSection";
 import DesktopHeaderSection from "./Desktop/HeaderSection";
+import MobileHeader from "./Mobile/Header";
 
 function HeaderSection() {
   return (
     <>
-      <MobileHeaderSection />
+      <MobileHeader />
       <DesktopHeaderSection />
     </>
   );

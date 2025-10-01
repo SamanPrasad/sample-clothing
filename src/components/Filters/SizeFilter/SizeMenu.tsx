@@ -2,16 +2,18 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import SizeButton from "./SizeButton";
 import type { ProductType, Size } from "@typings";
 import { sizes } from "@data/sizes";
-import ClearAll from "../StateComponents/ClearAll";
+import ClearAll from "../Shared/ClearAll";
 import { useProductsContext } from "@hooks/useProductContext";
 import clsx from "clsx";
+import Dropdown from "@components/Accordion/Dropdown";
 
 type Props = {
   products: ProductType[];
-  open: boolean;
+  isOpen: boolean;
+  cssClasses?: string;
 };
 
-function SizeMenu({ products, open }: Props) {
+function SizeMenu({ products, isOpen, cssClasses }: Props) {
   const [allSizes, setAllSizes] = useState<Size[]>([]);
   const { selectedSizes, setSelectedSizes } = useProductsContext();
 
@@ -41,35 +43,42 @@ function SizeMenu({ products, open }: Props) {
   return (
     <div
       className={clsx(
-        "absolute w-full top-9 left-0 flex justify-center pt-2.5 duration-300 overflow-hidden shadow-theme",
-        open && "max-h-60 opacity-100",
-        !open && "max-h-0 opacity-0"
+        "w-full top-9 left-0 pt-0.5 duration-300",
+        isOpen && "max-h-60",
+        !isOpen && "max-h-0",
+        cssClasses
       )}
     >
-      <div
-        className={clsx(
-          "w-full bg-white px-3 pb-4 duration-300",
-          !open && "-translate-y-9"
-        )}
-      >
-        <div className="w-full flex justify-start max-h-38 content-around flex-wrap space-x-2 overflow-hidden mb-3">
-          {availableSizes.length > 0 &&
-            availableSizes.map((size) => (
-              <SizeButton
-                key={size}
-                size={size}
-                available={true}
-                selected={selectedSizes.has(size)}
-                toggleSelect={() => toggleSelect(size)}
-              />
-            ))}
-          {unavailableSizes.length > 0 &&
-            unavailableSizes.map((item) => (
-              <SizeButton key={item.size} size={item.size} available={false} />
-            ))}
+      <Dropdown isOpen={isOpen}>
+        <div
+          className={clsx(
+            "w-full bg-white px-3 pt-1.5 pb-3 duration-300",
+            !isOpen && "-translate-y-9"
+          )}
+        >
+          <div className="w-full flex justify-start max-h-38 content-around flex-wrap space-x-2 overflow-hidden mb-3">
+            {availableSizes.length > 0 &&
+              availableSizes.map((size) => (
+                <SizeButton
+                  key={size}
+                  size={size}
+                  available={true}
+                  selected={selectedSizes.has(size)}
+                  toggleSelect={() => toggleSelect(size)}
+                />
+              ))}
+            {unavailableSizes.length > 0 &&
+              unavailableSizes.map((item) => (
+                <SizeButton
+                  key={item.size}
+                  size={item.size}
+                  available={false}
+                />
+              ))}
+          </div>
+          <ClearAll clearAll={() => setSelectedSizes(new Set())} />
         </div>
-        <ClearAll clearAll={() => setSelectedSizes(new Set())} />
-      </div>
+      </Dropdown>
     </div>
   );
 }

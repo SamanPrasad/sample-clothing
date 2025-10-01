@@ -2,14 +2,18 @@ import { colors } from "@data/colors";
 import type { ColorType, ProductType } from "@typings";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ColorButton from "./ColorButton";
-import ClearAll from "../StateComponents/ClearAll";
+import ClearAll from "../Shared/ClearAll";
 import { useProductsContext } from "@hooks/useProductContext";
+import Dropdown from "@components/Accordion/Dropdown";
+import clsx from "clsx";
 
 type Props = {
+  isOpen: boolean;
   products: ProductType[];
+  cssClasses?: string;
 };
 
-function ColorMenu({ products }: Props) {
+function ColorMenu({ isOpen, products, cssClasses }: Props) {
   const [allColors, setAllColors] = useState<ColorType[]>([]);
   const { selectedColors, setSelectedColors } = useProductsContext();
 
@@ -39,26 +43,40 @@ function ColorMenu({ products }: Props) {
   }, [products]);
 
   return (
-    <div className="absolute w-full left-0 top-0 max-h-0 opacity-0 flex justify-center py-2.5 group-hover:top-9 group-hover:max-h-60 group-hover:opacity-100 duration-300 overflow-hidden shadow-theme">
-      <div className="w-full bg-white px-3">
-        <div className="w-full flex justify-start content-around max-h-27 flex-wrap space-x-2 overflow-hidden px-0.5 mb-1.5">
-          {availableColors.length > 0 && //available colors for the product
-            availableColors.map((color) => (
-              <ColorButton
-                key={color}
-                color={color}
-                available={true}
-                selected={selectedColors.has(color)}
-                toggleSelect={() => toggleSelect(color)}
-              />
-            ))}
-          {allColors.length > 0 && //unavailable colors
-            unavailableColors.map((item) => (
-              <ColorButton key={item.color} color={item.color} />
-            ))}
+    <div
+      className={clsx(
+        "min-w-full left-0 top-9 pt-0.5 duration-300 overflow-hidden",
+        isOpen && "max-h-60 opacity-100",
+        !isOpen && "max-h-0 opacity-0",
+        cssClasses
+      )}
+    >
+      <Dropdown isOpen={isOpen}>
+        <div
+          className={clsx(
+            "w-full bg-white px-3 pt-1.5 pb-3 duration-300",
+            !isOpen && "-translate-y-9"
+          )}
+        >
+          <div className="w-full flex justify-start content-around max-h-27 flex-wrap space-x-2 overflow-hidden px-0.5 mb-1.5">
+            {availableColors.length > 0 && //available colors for the product
+              availableColors.map((color) => (
+                <ColorButton
+                  key={color}
+                  color={color}
+                  available={true}
+                  selected={selectedColors.has(color)}
+                  toggleSelect={() => toggleSelect(color)}
+                />
+              ))}
+            {allColors.length > 0 && //unavailable colors
+              unavailableColors.map((item) => (
+                <ColorButton key={item.color} color={item.color} />
+              ))}
+          </div>
+          <ClearAll clearAll={() => setSelectedColors(new Set())} />
         </div>
-        <ClearAll clearAll={() => setSelectedColors(new Set())} />
-      </div>
+      </Dropdown>
     </div>
   );
 }

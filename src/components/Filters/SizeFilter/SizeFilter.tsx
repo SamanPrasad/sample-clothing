@@ -1,12 +1,17 @@
-import CategoryMenu from "./CategoryMenu";
+import type { ProductType } from "@typings";
+import SizeMenu from "./SizeMenu";
 import { useProductsContext } from "@hooks/useProductContext";
 import { useState } from "react";
 import DesktopFilterHead from "../Shared/FilterHead/Desktop";
 import MobileFilterHead from "../Shared/FilterHead/Mobile";
 
-function CategoryFilter() {
+type Props = {
+  products: ProductType[];
+};
+
+function SizeFilter({ products }: Props) {
+  const { selectedSizes } = useProductsContext();
   const [isOpen, setIsOpen] = useState(false);
-  const { selectedCategories } = useProductsContext();
 
   return (
     <div className="relative w-full z-50">
@@ -16,24 +21,28 @@ function CategoryFilter() {
         onMouseOut={() => setIsOpen(false)}
       >
         <DesktopFilterHead
-          title="category"
+          title="size"
           isOpen={isOpen}
-          selectedList={selectedCategories}
+          selectedList={selectedSizes}
         />
-        <CategoryMenu isOpen={isOpen} cssClasses="absolute shadow-theme" />
+        <SizeMenu
+          products={products}
+          isOpen={isOpen}
+          cssClasses="absolute shadow-theme"
+        />
       </div>
       <div className="flex flex-col lg:hidden w-full">
         <div className="w-full" onClick={() => setIsOpen((prev) => !prev)}>
           <MobileFilterHead
-            title="category"
+            title="size"
             isOpen={isOpen}
-            selectedList={selectedCategories}
+            selectedList={selectedSizes}
           />
         </div>
-        <CategoryMenu isOpen={isOpen} />
+        <SizeMenu products={products} isOpen={isOpen} />
       </div>
     </div>
   );
 }
 
-export default CategoryFilter;
+export default SizeFilter;
