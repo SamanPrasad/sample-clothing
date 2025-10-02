@@ -21,9 +21,7 @@ function ThemeProvider({ children }: PropsWithChildren) {
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
     const storedMode = localStorage.getItem("theme-mode") as ThemeMode | null;
     if (storedMode) return storedMode;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+    return "light";
   });
 
   useEffect(() => {
