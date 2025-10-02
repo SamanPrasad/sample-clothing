@@ -1,10 +1,11 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import "./Slider.css";
+import sliderStyles from "./Slider.module.css";
 import { images, potraitImages } from "../../data/sliderImages";
-import arrowLeft from "../../assets/icons/arrow-left.svg";
+import arrowLeft from "@assets/icons/arrow-left.svg";
 import arrowRight from "../../assets/icons/arrow-right.svg";
 import Loader from "../Loader/Loader";
 import { useViewWidth } from "@hooks/useViewWidth";
+import clsx from "clsx";
 
 function Slider() {
   const [current, setCurrent] = useState(0);
@@ -45,7 +46,9 @@ function Slider() {
     return (width > 768 ? images : potraitImages).map((image, index) => (
       <div
         key={image.id}
-        className={`navigate-item h-4 aspect-square rounded-2xl border-1 border-gray-500 cursor-pointer ${
+        className={`${
+          sliderStyles["navigate-item"]
+        } h-4 aspect-square rounded-2xl border-1 border-gray-500 cursor-pointer ${
           index == current ? "bg-gray-500" : ""
         }`}
         onClick={() => {
@@ -77,31 +80,39 @@ function Slider() {
   }
 
   return (
-    <div className="w-full slider overflow-hidden group h-[130vw] md:h-[40vw] relative">
-      <div className="sliders-container relative h-full">
+    <div className="w-full overflow-hidden group h-[130vw] md:h-[40vw] relative">
+      <div className="relative h-full">
         <img
-          className={`slider-item current z-10 object-cover ${
-            sliding ? "slide-fade" : ""
+          className={`${
+            sliderStyles["slider-item"]
+          } current z-10 object-cover ${
+            sliding ? sliderStyles["slide-fade"] : ""
           }`}
           src={handleSrc()}
           onAnimationEnd={() => setStatus(false)}
         />
       </div>
-      <div className="controllers absolute top-2/4 -translate-y-1/2 z-20 w-full flex justify-between px-4">
+      <div className="absolute top-2/4 -translate-y-1/2 z-20 w-full flex justify-between px-4">
         <img
           src={arrowLeft}
           alt=""
-          className="slider-arrow md:-translate-x-20"
+          className={clsx(
+            "min-h-8 h-[8vw] md:h-15 rounded-4xl md:opacity-0 group-hover:opacity-100 group-hover:translate-x-0 bg-[#d4d4d4] md:bg-transparent md:-translate-x-20",
+            sliderStyles["slider-arrow"]
+          )}
           onClick={() => manualNavigation("prev")}
         />
         <img
           src={arrowRight}
           alt=""
-          className="slider-arrow md:translate-x-20"
+          className={clsx(
+            "min-h-8 h-[8vw] md:h-15 rounded-4xl md:opacity-0 group-hover:opacity-100 group-hover:translate-x-0 bg-[#d4d4d4] md:bg-transparent md:translate-x-20",
+            sliderStyles["slider-arrow"]
+          )}
           onClick={() => manualNavigation("next")}
         />
       </div>
-      <div className="navigators absolute flex justify-center gap-5 bottom-10 w-full z-30">
+      <div className="absolute flex justify-center gap-5 bottom-10 w-full z-30">
         {navigators}
       </div>
     </div>

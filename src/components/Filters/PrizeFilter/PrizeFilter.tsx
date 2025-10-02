@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./PrizeFilter.css";
 import PrizeMenu from "./PrizeMenu";
 import DesktopFilterHead from "../Shared/FilterHead/Desktop";
 import MobileFilterHead from "../Shared/FilterHead/Mobile";

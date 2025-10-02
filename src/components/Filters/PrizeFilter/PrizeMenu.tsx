@@ -1,6 +1,7 @@
 import Dropdown from "@components/Accordion/Dropdown";
 import clsx from "clsx";
 import { useMemo, useRef, useState } from "react";
+import prizeStyles from "./PrizeFilter.module.css";
 
 type Props = {
   isOpen: boolean;
@@ -57,7 +58,7 @@ function PrizeMenu({ isOpen, cssClasses }: Props) {
               max={max}
               step={1}
               type="range"
-              className="slider slider-min w-full absolute"
+              className={clsx("w-full absolute", prizeStyles["slider"])}
               onChange={(e) => setStartValue(Number(e.currentTarget.value))}
               value={startValue}
             />
@@ -66,7 +67,7 @@ function PrizeMenu({ isOpen, cssClasses }: Props) {
               max={max}
               step={1}
               type="range"
-              className="slider slider-max w-full absolute"
+              className={clsx("w-full absolute", prizeStyles["slider"])}
               onChange={(e) => setEndValue(Number(e.currentTarget.value))}
               value={endValue}
             />
