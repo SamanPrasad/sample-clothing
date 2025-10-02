@@ -1,5 +1,5 @@
 import { AnimatePresence } from "motion/react";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import { useLocation, useOutlet } from "react-router";
 import * as motion from "motion/react-client";
 
@@ -25,3 +25,5 @@ function AnimatedOutlet() {
 }
 
 export default AnimatedOutlet;
+
+export const MemoizedAnimatedOutlet = memo(AnimatedOutlet);

@@ -1,13 +1,16 @@
 import StoreProvider from "./StoreProvider";
+import ThemeProvider from "./ThemeProvider";
 import ViewWidthProvider from "./ViewWidthProvider";
 import AppComponent from "@components/AppComponent/AppComponent";
 
 function AppProvider() {
   return (
     <StoreProvider>
-      <ViewWidthProvider>
-        <AppComponent />
-      </ViewWidthProvider>
+      <ThemeProvider>
+        <ViewWidthProvider>
+          <AppComponent />
+        </ViewWidthProvider>
+      </ThemeProvider>
     </StoreProvider>
   );
 }

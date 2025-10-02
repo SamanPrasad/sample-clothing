@@ -32,38 +32,20 @@ function Cart() {
     dispatch(setCart(productsList));
   }, []);
   return (
-    <div className="p-0 pt-2 relative cursor-pointer">
+    <div className="w-full relative cursor-pointer">
       <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
+        viewBox="0 0 1024 1024"
+        preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="w-full aspect-square fill-none"
       >
-        <path d="M24 0H0V24H24V0Z" fill="white" />
         <path
-          d="M5.33331 6H19.8672C20.4687 6 20.9341 6.52718 20.8595 7.12403L20.1095 13.124C20.0469 13.6245 19.6215 14 19.1172 14H16.5555H9.44442H7.99998"
-          stroke="black"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M2 4H4.23362C4.68578 4 5.08169 4.30341 5.19924 4.74003L8.30076 16.26C8.41831 16.6966 8.81422 17 9.26638 17H19"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M10 21C10.5523 21 11 20.5523 11 20C11 19.4477 10.5523 19 10 19C9.44772 19 9 19.4477 9 20C9 20.5523 9.44772 21 10 21Z"
-          stroke="black"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M17.5 21C18.0523 21 18.5 20.5523 18.5 20C18.5 19.4477 18.0523 19 17.5 19C16.9477 19 16.5 19.4477 16.5 20C16.5 20.5523 16.9477 21 17.5 21Z"
-          stroke="black"
-          strokeLinejoin="round"
+          d="M800.8 952C769.6 952 744.8 927.2 744.8 896C744.8 864.8 769.6 840 800.8 840C832 840 856.8 864.8 856.8 896C856.8 927.2 831.2 952 800.8 952ZM352.8 952C321.6 952 296.8 927.2 296.8 896C296.8 864.8 321.6 840 352.8 840C384 840 408.8 864.8 408.8 896C408.8 927.2 383.2 952 352.8 952ZM344 792C301.6 792 264.8 758.4 260 716L205.6 333.6L174.4 155.2C172 136 155.2 120 136.8 120H96C82.4 120 72 109.6 72 96C72 82.4 82.4 72 96 72H136.8C179.2 72 216.8 105.6 222.4 148L253.6 326.4L308 709.6C309.6 728 326.4 744 344 744H864C877.6 744 888 754.4 888 768C888 781.6 877.6 792 864 792H344ZM384 664C371.2 664 360.8 654.4 360 641.6C359.2 635.2 361.6 628.8 365.6 624C369.6 619.2 376 616 381.6 616L816 584C835.2 584 852 568.8 854.4 550.4L904.8 262.4C906.4 248.8 902.4 234.4 894.4 225.6C888.8 219.2 881.6 216 872.8 216H320C306.4 216 296 205.6 296 192C296 178.4 306.4 168 320 168H874.4C896.8 168 916.8 177.6 932 193.6C948.8 212.8 956.8 240.8 953.6 268.8L903.2 556.8C898.4 598.4 860.8 631.2 819.2 631.2L387.2 663.2C385.6 664 384.8 664 384 664Z"
+          fill="black"
+          className="fill-black dark:fill-white duration-700"
         />
       </svg>
-      <p className="absolute min-w-5 p-0.5 top-0 -right-1.5 text-xs bg-red-700 text-white aspect-square rounded-full flex justify-center items-center">
+      <p className="absolute min-w-5 p-0.5 -top-2 -right-2.5 text-xs bg-red-700 text-white aspect-square rounded-full flex justify-center items-center">
         {items.length}
       </p>
     </div>

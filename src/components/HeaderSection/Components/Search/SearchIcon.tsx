@@ -8,10 +8,14 @@ function SearchIcon() {
     >
       <path
         d="M28 48C39.0457 48 48 39.0457 48 28C48 16.9543 39.0457 8 28 8C16.9543 8 8 16.9543 8 28C8 39.0457 16.9543 48 28 48Z"
-        stroke="black"
         strokeWidth={2}
+        className="stroke-black dark:stroke-white duration-700"
       />
-      <path d="M56 56L42.14 42.14" stroke="black" strokeWidth={2.5} />
+      <path
+        d="M56 56L42.14 42.14"
+        strokeWidth={2.5}
+        className="stroke-black dark:stroke-white duration-700"
+      />
     </svg>
   );
 }

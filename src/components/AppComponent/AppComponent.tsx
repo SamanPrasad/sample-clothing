@@ -5,10 +5,12 @@ import { useSelector } from "react-redux";
 import Guard from "../Guard";
 import type { RootStore } from "@store";
 import "./AppComponent.css";
-import AnimatedOutlet from "@components/AnimatedOutlet";
+import { MemoizedAnimatedOutlet } from "@components/AnimatedOutlet";
+import { useThemeMode } from "@context/ThemeProvider";
 
 function AppComponent() {
   const userState = useSelector((store: RootStore) => store.user.status);
+  const { themeMode } = useThemeMode();
 
   useEffect(() => {
     const handleFocus = () => (document.title = "Kelly Felder Clone");
@@ -27,10 +29,10 @@ function AppComponent() {
   }
 
   return (
-    <div>
+    <div className={themeMode == "dark" ? "dark" : ""}>
       <HeaderSection />
       <div className="relative overflow-hidden">
-        <AnimatedOutlet />
+        <MemoizedAnimatedOutlet />
       </div>
       <Footer />
     </div>
