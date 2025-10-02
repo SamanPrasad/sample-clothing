@@ -6,6 +6,7 @@ import Title from "../Components/Title";
 import useShowHeader from "../../../hooks/useShowHeader";
 import Menu from "./Navbar/Menu";
 import { useState } from "react";
+import DarkMode from "@components/DarkMode/DarkMode";
 
 function Header() {
   const [openState, setOpenState] = useState(false);
@@ -15,7 +16,7 @@ function Header() {
     <div
       className={`lg:hidden sticky ${
         show ? "top-0" : "-top-12"
-      } flex h-12 z-[99] bg-white duration-300`}
+      } flex h-12 z-[99] bg-white dark:bg-black duration-300`}
     >
       <div className="w-16 flex-none p-2.5 pt-3.5 ps-3.5 box-border">
         <Hamburger openState={openState} setOpenState={setOpenState} />
@@ -27,10 +28,13 @@ function Header() {
       <div className="min-w-24 grow-1 shrink-0 flex justify-center items-center">
         <Title />
       </div>
-      <div className="w-7 flex-none me-1.5">
+      <div className="w-7 flex items-center flex-none me-1.5">
         <Account />
       </div>
-      <div className="min-w-7 mx-2 flex items-center pe-3.5">
+      <div className="h-full py-2 px-0.5 flex items-center">
+        <DarkMode />
+      </div>
+      <div className="flex flex-none items-center w-7 mx-2 me-4 pt-0.5">
         <Cart />
       </div>
     </div>

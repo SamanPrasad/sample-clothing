@@ -10,10 +10,9 @@ function Curve({ openState }: Props) {
 
   return (
     <motion.svg
-      className="w-full h-full absolute left-0 top-0 -z-[100]"
+      className="w-full h-full absolute left-0 top-0 -z-[100] fill-white dark:fill-black duration-700"
       viewBox="0 0 50 50"
       preserveAspectRatio="none"
-      fill="white"
       xmlns="http://www.w3.org/2000/svg"
     >
       <motion.path

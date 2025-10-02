@@ -9,15 +9,14 @@ interface Props {
 function Hamburger({ openState, setOpenState }: Props) {
   return (
     <svg
-      className="w-full h-full cursor-pointer"
+      className="w-full h-full cursor-pointer fill-none"
       viewBox="0 0 30 20"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
       onClick={() => setOpenState((prev) => !prev)}
     >
       <motion.g
+        className="stroke-black dark:stroke-white duration-700"
         style={{
-          stroke: "black",
           strokeWidth: 2,
           strokeLinecap: "round",
         }}

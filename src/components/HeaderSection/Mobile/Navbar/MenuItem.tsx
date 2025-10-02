@@ -45,7 +45,7 @@ function MenuItem({ menuItem, delay, menuOpen, toggle }: Props) {
       animate="visible"
       custom={delay}
     >
-      <h1 className="flex justify-start items-center text-2xl font-normal">
+      <h1 className="flex justify-start items-center text-2xl font-normal text-black dark:text-white duration-700">
         <Link to={menuItem.uri} onClick={() => toggle()}>
           {menuItem.menu}
         </Link>
