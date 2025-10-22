@@ -1,9 +1,10 @@
+import { INITIAL_PER_PAGE } from "@constants";
 import { useEffect, useState } from "react";
 
 function useSavePerPage() {
   const [perPage, setPerPage] = useState(() => {
     const pageValue = localStorage.getItem("perpage");
-    return pageValue ? parseInt(pageValue) : 5;
+    return pageValue ? parseInt(pageValue) : INITIAL_PER_PAGE;
   });
 
   useEffect(() => {

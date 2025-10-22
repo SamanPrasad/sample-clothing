@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import ClearAll from "../Shared/ClearAll";
 import ShowMore from "../Shared/ShowMore";
 import { useProductsContext } from "@hooks/useProductContext";
-import { categories } from "@data/categories";
 import Dropdown from "@components/Accordion/Dropdown";
 import clsx from "clsx";
+import useProductGroup from "@hooks/useProductGroup";
 
 type Props = {
   isOpen: boolean;
@@ -15,6 +15,7 @@ function CategoryMenu({ isOpen, cssClasses }: Props) {
   const [showAll, setShowAll] = useState(false);
   const ulRef = useRef<HTMLUListElement | null>(null);
   const { selectedCategories, setSelectedCategories } = useProductsContext();
+  const { groupItems } = useProductGroup("categories");
 
   const toggleSelect = (id: number) => {
     setSelectedCategories((prev) => {
@@ -50,12 +51,12 @@ function CategoryMenu({ isOpen, cssClasses }: Props) {
         >
           <ul
             ref={ulRef}
-            className={`pb-3 mb-2 h-36 ${
+            className={`pb-3 mb-2 max-h-36 ${
               showAll ? "overflow-y-scroll" : "overflow-y-hidden"
             }`}
           >
-            {categories.length > 0 &&
-              categories.map((category) => (
+            {groupItems.length > 0 &&
+              groupItems.map((category) => (
                 <li key={category.id}>
                   <input
                     className="accent-black"
@@ -68,7 +69,7 @@ function CategoryMenu({ isOpen, cssClasses }: Props) {
                     className="ms-1.5 font-[Poppins] text-xs tracking-wide"
                     htmlFor={`category-${category.id}`}
                   >
-                    {`${category.title} (${category.products.length})`}
+                    {`${category.title} (${category.productCount})`}
                   </label>
                 </li>
               ))}

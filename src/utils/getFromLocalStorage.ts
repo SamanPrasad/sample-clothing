@@ -1,3 +1,4 @@
+import { CART_ITEM_TTL } from "@constants";
 import type { LocalStoageNewItem, LocalStorageCartItem } from "@typings";
 
 export const getLocalStorageCartItems = (key: string) => {
@@ -18,8 +19,6 @@ export const setLocalStorageCartItems = (
     (item: LocalStorageCartItem) => item.id == newItem.id
   );
 
-  const ttl = 5 * 24 * 60 * 60 * 1000; //im milliseconds
-
   try {
     localStorage.setItem(
       "cart",
@@ -35,10 +34,8 @@ export const setLocalStorageCartItems = (
               ...currentItems,
               {
                 id: newItem.id,
-                color: newItem.color,
-                size: newItem.size,
                 count: 1,
-                expiry: new Date().getTime() + ttl,
+                expiry: new Date().getTime() + CART_ITEM_TTL,
               },
             ]
       )

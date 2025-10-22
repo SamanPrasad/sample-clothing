@@ -3,16 +3,13 @@ import NotFound from "../NotFound";
 import PageTitle from "../PageTitle";
 import Pagination from "../Pagination/Pagination";
 import ProductCardList from "./ProductCardList";
-import type { ProductResponse } from "@typings";
-import { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "react-router";
-import { getCategory } from "../../api/category";
-import { getProducts } from "../../api/products";
+import { useRef, useState } from "react";
 import Loader from "@components/Loader/Loader";
 import useSavePerPage from "@hooks/useSavePerPage";
 import ProductProvider from "@context/ProductProvider";
 import GridLayout from "./GridLayout";
 import DesktopFiltersList from "./FiltersList/Desktop";
+import useProducts from "@hooks/useProducts";
 
 type Props = {
   title: string;
@@ -24,33 +21,18 @@ type Props = {
 
 function ProductList({ title, queryObj }: Props) {
   const gridLayoutControls = useGridLayoutControls();
-  const [searchParams] = useSearchParams();
   const { perPage, setPerPage } = useSavePerPage();
-  const [products, setProducts] = useState<ProductResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const { products, numberOfPages, total, loading } = useProducts(
+    currentPage,
+    perPage
+  );
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [selectedColors, setSelectedColors] = useState<Set<string>>(new Set());
   const [selectedCategories, setSelectedCategories] = useState<Set<number>>(
     new Set()
   );
   const [selectedSizes, setSelectedSizes] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    //FOr API integration
-    setLoading(true);
-    if (queryObj.type == "categories") {
-      const category = getCategory(
-        queryObj.typeItem!,
-        searchParams.get("page") ?? "1",
-        perPage
-      );
-      setProducts(category);
-    } else {
-      setProducts(getProducts(searchParams.get("page") ?? "1", perPage));
-    }
-    setLoading(false);
-    scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [searchParams, perPage, queryObj]);
 
   if (loading) {
     return <Loader />;
@@ -66,7 +48,7 @@ function ProductList({ title, queryObj }: Props) {
     );
   }
 
-  const hasProducts = products.products.length > 0;
+  const hasProducts = products.length > 0;
 
   return (
     <ProductProvider
@@ -96,7 +78,7 @@ function ProductList({ title, queryObj }: Props) {
           <ProductCardList
             layout={gridLayoutControls.layout}
             grid={gridLayoutControls.grid}
-            products={products.products}
+            products={products}
             parent={title}
           />
         ) : (
@@ -109,8 +91,10 @@ function ProductList({ title, queryObj }: Props) {
           <div className="flex justify-center mb-20">
             <Pagination
               perPage={perPage}
-              pagesCount={products.pages}
-              total={products.total}
+              pagesCount={numberOfPages}
+              total={total}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
             />
           </div>
         )}

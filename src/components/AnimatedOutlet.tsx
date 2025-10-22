@@ -1,10 +1,9 @@
 import { AnimatePresence } from "motion/react";
 import { memo, useRef } from "react";
-import { useLocation, useOutlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import * as motion from "motion/react-client";
 
 function AnimatedOutlet() {
-  const outlet = useOutlet();
   const location = useLocation();
   const navigationId = useRef(0);
   navigationId.current++;
@@ -18,7 +17,7 @@ function AnimatedOutlet() {
         exit={{ x: "100%", opacity: 0 }}
         transition={{ duration: 0.7 }}
       >
-        {outlet ? outlet : <p>Select a page</p>}
+        <Outlet />
       </motion.div>
     </AnimatePresence>
   );

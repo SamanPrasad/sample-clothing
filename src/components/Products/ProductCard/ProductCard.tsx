@@ -1,13 +1,15 @@
-import type { ProductType } from "../../../types/product";
+import type { ProductType, VariantType } from "../../../types/product";
 import Add from "../Add";
-import type { CartItem, GridLayoutType } from "@typings";
+import type { GridLayoutType } from "@typings";
 import getExcerpt from "@utils/getExcerpt";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import ProductImage from "./ProductImage";
+import noImage from "@assets/no-image.png";
 import clsx from "clsx";
 import ColorImage from "./ColorImage";
 import SizeButton from "@components/Filters/SizeFilter/SizeButton";
 import { useViewWidth } from "@hooks/useViewWidth";
+import { Link } from "react-router";
 
 interface Props {
   product: ProductType;
@@ -17,11 +19,24 @@ interface Props {
 
 function ProductCard({ product, parent, layout }: Props) {
   const viewWidth = useViewWidth();
-  const [selectedVariant, setSelectedVariant] = useState<CartItem>({
-    product,
-    color: product.colors[0] ?? "black",
-    size: product.sizes[0],
-  });
+  const [selectedVariant, setSelectedVariant] = useState<VariantType>(
+    product.variants[0]
+  );
+
+  const { variantColors, variantsBasedOnColors } = useMemo(() => {
+    const variantColors = new Set<string>();
+    const variantsBasedOnColors = new Map<string, VariantType[]>();
+    product.variants.forEach((variant) => {
+      variantColors.add(variant.color);
+
+      if (!variantsBasedOnColors.has(variant.color)) {
+        variantsBasedOnColors.set(variant.color, []);
+      }
+
+      variantsBasedOnColors.get(variant.color)!.push(variant);
+    });
+    return { variantColors: Array.from(variantColors), variantsBasedOnColors };
+  }, [product.variants]);
 
   const excerpt = useMemo(
     () => getExcerpt(product.description, 200),
@@ -32,15 +47,9 @@ function ProductCard({ product, parent, layout }: Props) {
     return (layout == "vertical" && viewWidth < 550) || layout == "horizontal";
   }, [viewWidth, layout]);
 
-  const QuickAdd = <Add title="quick add" selectedProduct={selectedVariant} />;
-
-  const toggleColor = useCallback((color: string) => {
-    setSelectedVariant((prev) => prev && { ...prev, color });
-  }, []);
-
-  const toggleSize = useCallback((size: string) => {
-    setSelectedVariant((prev) => prev && { ...prev, size });
-  }, []);
+  const QuickAdd = useMemo(() => {
+    return <Add title="quick add" selectedProduct={selectedVariant} />;
+  }, [selectedVariant]);
 
   return (
     <div className={clsx("w-full", { flex: !isHorizontal })}>
@@ -52,12 +61,12 @@ function ProductCard({ product, parent, layout }: Props) {
         )}
       >
         <ProductImage
-          src={product.images[0]}
+          src={product.variants[0].images[0] ?? noImage}
           alt={product.title}
           extraClasses="group-hover:opacity-0 z-10"
         />
         <ProductImage
-          src={product.images[1]}
+          src={product.variants[0].images[1] ?? noImage}
           alt={product.title}
           extraClasses="opacity-50 group-hover:opacity-100"
         />
@@ -70,8 +79,8 @@ function ProductCard({ product, parent, layout }: Props) {
         <div className="absolute text-center text-xs font-[Poppins] left-0 top-0 w-12 py-1 bg-white z-30">
           <span>New</span>
         </div>
-        <a
-          href={`/products/${product.slug}`}
+        <Link
+          to={`/products/${product.slug}`}
           className="absolute w-full h-full z-20"
         />
       </div>
@@ -104,7 +113,7 @@ function ProductCard({ product, parent, layout }: Props) {
             isHorizontal && "text-center"
           )}
         >
-          Rs {product.price}
+          Rs {selectedVariant.price}
         </h1>
         <div
           className={clsx(
@@ -113,14 +122,20 @@ function ProductCard({ product, parent, layout }: Props) {
             isHorizontal && "justify-center"
           )}
         >
-          {product.colors.map((color) => (
-            <ColorImage
-              color={color}
-              src={product.images[0]}
-              selected={selectedVariant?.color == color}
-              toggleSelect={() => toggleColor(color)}
-            />
-          ))}
+          {variantColors.map((color) => {
+            const variant = product.variants.find(
+              (variant) => variant.color == color
+            )!;
+            return (
+              <ColorImage
+                key={variant.id}
+                color={variant.color}
+                src={variant.images[0] ?? noImage}
+                selected={selectedVariant.color == variant.color}
+                toggleSelect={() => setSelectedVariant(variant)}
+              />
+            );
+          })}
         </div>
         <div
           className={clsx(
@@ -129,14 +144,17 @@ function ProductCard({ product, parent, layout }: Props) {
             isHorizontal && "justify-center"
           )}
         >
-          {product.sizes.map((size) => (
-            <SizeButton
-              size={size}
-              available={true}
-              selected={selectedVariant?.size == size}
-              toggleSelect={() => toggleSize(size)}
-            />
-          ))}
+          {variantsBasedOnColors.get(selectedVariant.color)!.map((variant) => {
+            return (
+              <SizeButton
+                key={variant.id}
+                size={variant.size}
+                available={true}
+                selected={variant.size == selectedVariant.size}
+                toggleSelect={() => setSelectedVariant(variant)}
+              />
+            );
+          })}
         </div>
         {!isHorizontal && <div className="w-48 mt-5">{QuickAdd}</div>}
       </div>

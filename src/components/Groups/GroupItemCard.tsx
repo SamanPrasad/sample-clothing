@@ -14,7 +14,7 @@ function GroupItemCard({ groupItem }: Props) {
       <div className="front w-full transform-3d group-hover:rotate-y-180 backface-hidden duration-700">
         <Link to={url}>
           <img
-            src={groupItem.img}
+            src={`/categories/${groupItem.image}`}
             className="image object-cover object-center w-full aspect-square"
           />
           <div className="title w-full mt-5">
@@ -31,7 +31,7 @@ function GroupItemCard({ groupItem }: Props) {
           </button>
         </Link>
         <h2 className="mt-2 text-[#232323]">
-          {groupItem.products.length} Products
+          {groupItem.productCount} Products
         </h2>
       </div>
     </div>

@@ -1,15 +1,28 @@
-import type { Group } from "@typings";
-import { categories } from "../../data/categories";
 import GroupItemCardList from "@components/Groups/GroupItemCardList";
-
-const group: Group = {
-  id: 1,
-  title: "categories",
-  items: categories,
-};
+import { useState } from "react";
+import Loader from "@components/Loader/Loader";
+import useProductGroup from "@hooks/useProductGroup";
 
 function CategoryList() {
-  return <GroupItemCardList group={group} />;
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 1;
+  const { loading, groupItems } = useProductGroup(
+    "categories",
+    currentPage,
+    perPage
+  );
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  return (
+    <GroupItemCardList
+      groupItems={groupItems}
+      groupTitle="Categories"
+      setCurrentPage={setCurrentPage}
+    />
+  );
 }
 
 export default CategoryList;

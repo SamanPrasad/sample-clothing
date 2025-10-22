@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import * as motion from "motion/react-client";
 
 type Props = {
   perPage: number;
-  setPerPage: (page: number) => void;
+  setPerPage: Dispatch<SetStateAction<number>>;
 };
 
 const perPageList = [1, 2, 3, 5, 10, 15, 20, 25];

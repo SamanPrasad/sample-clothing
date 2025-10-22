@@ -1,12 +1,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { CartItem } from "@typings";
+import type { CartItem, VariantType } from "@typings";
 
 type CartState = {
-  products: CartItem[];
+  cartItems: CartItem[];
 };
 
 const initialState: CartState = {
-  products: [],
+  cartItems: [],
 };
 
 const cartSlice = createSlice({
@@ -14,10 +14,17 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     setCart: (cart, action) => {
-      cart.products = action.payload;
+      cart.cartItems = action.payload;
     },
-    addToCart: (cart, action: PayloadAction<CartItem>) => {
-      cart.products.push(action.payload);
+    addToCart: (cart, action: PayloadAction<VariantType>) => {
+      const index = cart.cartItems.findIndex(
+        (item) => item.productVariant.id == action.payload.id
+      );
+      if (index > -1) {
+        cart.cartItems[index].count += 1;
+      } else {
+        cart.cartItems.push({ productVariant: action.payload, count: 0 });
+      }
     },
     // removeFromCart: (items) => {
     //   items.count -= 1;

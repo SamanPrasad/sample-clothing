@@ -1,7 +1,5 @@
 export type LocalStorageCartItem = {
-  id: number;
-  color: string;
-  size: string;
+  id: string;
   count: number;
   expiry: number;
 };

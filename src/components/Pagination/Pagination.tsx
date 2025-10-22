@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
+import { type Dispatch, type SetStateAction } from "react";
 import ShowingRange from "./ShowingRange";
 import ProgressBar from "./ProgressBar";
 import PageList from "./PageList";
@@ -8,26 +7,17 @@ interface Props {
   perPage: number;
   pagesCount: number;
   total: number;
+  currentPage: number;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
 }
 
-function Pagination({ perPage, pagesCount, total }: Props) {
-  const [searchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    const pageParam = searchParams.get("page");
-    if (pageParam) {
-      const parsePageParam = parseInt(pageParam);
-      const page =
-        parsePageParam <= 0 || Number.isNaN(parsePageParam)
-          ? 1
-          : parsePageParam > pagesCount
-          ? pagesCount
-          : parsePageParam;
-      setCurrentPage(page);
-    }
-  }, [perPage]);
-
+function Pagination({
+  perPage,
+  pagesCount,
+  total,
+  currentPage,
+  setCurrentPage,
+}: Props) {
   return (
     <div className="flex flex-col justify-center items-center">
       <ShowingRange currentPage={currentPage} perPage={perPage} total={total} />

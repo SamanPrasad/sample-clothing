@@ -6,3 +6,5 @@ export * from "./color";
 export * from "./size";
 export * from "./cart";
 export * from "./localStorage";
+export * from "./api";
+export * from "./slider";

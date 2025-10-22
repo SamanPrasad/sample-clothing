@@ -1,5 +1,4 @@
 import { type ReactElement } from "react";
-import { Link, useLocation } from "react-router";
 
 interface Props {
   currentPage: number;
@@ -8,19 +7,16 @@ interface Props {
 }
 
 function PageList({ currentPage, pagesCount, setCurrentPage }: Props) {
-  const path = useLocation();
-
   const generateLinkElement = (page: number, isActive: boolean) => (
-    <Link
+    <span
       key={page}
-      to={path.pathname + `?page=${page}`}
       className={`${
         isActive ? "font-bold text-[#363636] underline" : ""
-      } mx-1 font-[Poppins] text-xs text-[#707070] hover:underline`}
+      } mx-1 font-[Poppins] text-xs text-[#707070] hover:underline cursor-pointer`}
       onClick={() => setCurrentPage(page)}
     >
       {page}
-    </Link>
+    </span>
   );
 
   const generateSpanElement = (key: string, text: string) => (
@@ -61,21 +57,19 @@ function PageList({ currentPage, pagesCount, setCurrentPage }: Props) {
   return (
     <div className="flex justify-center items-center gap-1.5">
       {currentPage > 1 && (
-        <Link
-          to={`${path.pathname}?page=${currentPage - 1}`}
-          className="uppercase hover:underline font-bold text-xs text-[#363636] me-2"
+        <span
+          className="uppercase hover:underline font-bold text-xs text-[#363636] me-2 cursor-pointer"
           onClick={() =>
             setCurrentPage(currentPage - 1 <= 0 ? currentPage : currentPage - 1)
           }
         >
           Prev
-        </Link>
+        </span>
       )}
       {generatePageNumbers()}
       {currentPage < pagesCount && (
-        <Link
-          to={`${path.pathname}?page=${currentPage + 1}`}
-          className="uppercase hover:underline font-bold text-xs text-[#363636] ms-2"
+        <span
+          className="uppercase hover:underline font-bold text-xs text-[#363636] ms-2 cursor-pointer"
           onClick={() =>
             setCurrentPage(
               currentPage + 1 > pagesCount ? currentPage : currentPage + 1
@@ -83,7 +77,7 @@ function PageList({ currentPage, pagesCount, setCurrentPage }: Props) {
           }
         >
           Next
-        </Link>
+        </span>
       )}
     </div>
   );

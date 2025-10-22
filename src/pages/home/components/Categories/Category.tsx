@@ -11,7 +11,7 @@ function Category({ data }: Props) {
       <div className="flex justify-center w-full h-full overflow-hidden relative group-hover/main:rotate-2 group-hover/main:duration-[3s] duration-150">
         <img
           className="w-full h-full object-cover object-center group-hover/main:scale-110 group-hover/main:duration-[3s] duration-150"
-          src={data.img}
+          src={`/categories/${data.image}`}
         />
         <div className="absolute w-[120%] -translate-y-full group-hover/main:translate-y-full -translate-x-full group-hover/main:translate-x-full h-full bg-[linear-gradient(135deg,transparent_40%,rgba(255,255,255,0.1)_50%,transparent_60%)] group-hover/main:duration-[5s]"></div>
       </div>

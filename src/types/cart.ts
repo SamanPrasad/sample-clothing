@@ -1,7 +1,6 @@
-import type { ProductType } from "./product";
+import type { VariantType } from "./product";
 
 export type CartItem = {
-  product: ProductType;
-  size: string;
-  color: string;
+  productVariant: VariantType;
+  count: number;
 };

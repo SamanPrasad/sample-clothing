@@ -1,13 +1,13 @@
 import CategoryFilter from "@components/Filters/CategoryFilter";
 import ColorFilter from "@components/Filters/ColorFilter";
 import PrizeFilter from "@components/Filters/PrizeFilter";
-import type { ProductResponse } from "@typings";
+import type { ProductType } from "@typings";
 import FilterItem from "../FilterItem";
 import SizeFilter from "@components/Filters/SizeFilter";
 
 type Props = {
   type: string;
-  products: ProductResponse;
+  products: ProductType[];
 };
 
 const filtersList = [CategoryFilter, SizeFilter, PrizeFilter, ColorFilter];
@@ -19,11 +19,7 @@ function FiltersList({ type, products }: Props) {
         if (type == "categories" && Filter === CategoryFilter) return null;
         return (
           <div key={index} className="w-[15%] mx-2.5">
-            <FilterItem
-              key={index}
-              Filter={Filter}
-              products={products.products}
-            />
+            <FilterItem key={index} Filter={Filter} products={products} />
           </div>
         );
       })}

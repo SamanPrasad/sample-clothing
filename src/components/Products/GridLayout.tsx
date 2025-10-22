@@ -3,14 +3,14 @@ import PerPage from "@components/PerPage";
 import type { GridLayoutProps } from "@hooks/useGridLayoutControls";
 import { type Dispatch, type SetStateAction } from "react";
 import FiltersList from "./FiltersList/Mobile";
-import type { ProductResponse } from "@typings";
+import type { ProductType } from "@typings";
 
 type Props = {
   gridLayoutControls: GridLayoutProps;
   perPage: number;
   setPerPage: Dispatch<SetStateAction<number>>;
   type: string;
-  products: ProductResponse;
+  products: ProductType[];
 };
 
 function GridLayout({

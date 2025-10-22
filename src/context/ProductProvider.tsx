@@ -1,4 +1,4 @@
-import type { ProductResponse } from "@typings";
+import type { ProductType } from "@typings";
 import {
   createContext,
   type Dispatch,
@@ -7,7 +7,7 @@ import {
 } from "react";
 
 type ProductContextType = {
-  products: ProductResponse | null;
+  products: ProductType[] | null;
   selectedColors: Set<string>;
   setSelectedColors: Dispatch<SetStateAction<Set<string>>>;
   selectedCategories: Set<number>;

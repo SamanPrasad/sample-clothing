@@ -2,7 +2,7 @@ import SizeFilter from "@components/Filters/SizeFilter/SizeFilter";
 import MobileMenu from "@components/MobileMenu/MobileMenu";
 import { useLockBodyScroll } from "@hooks/useLockBodyScroll";
 import { useViewWidth } from "@hooks/useViewWidth";
-import type { ProductResponse } from "@typings";
+import type { ProductType } from "@typings";
 import { useEffect, useState } from "react";
 import { CiFilter } from "react-icons/ci";
 import FilterItem from "../FilterItem";
@@ -13,7 +13,7 @@ import PrizeFilter from "@components/Filters/PrizeFilter";
 
 type Props = {
   type: string;
-  products: ProductResponse;
+  products: ProductType[];
 };
 
 const filtersList = [CategoryFilter, SizeFilter, PrizeFilter, ColorFilter];
@@ -49,11 +49,7 @@ function FiltersList({ products, type }: Props) {
           {filtersList.map((Filter, index) => {
             return type == "categories" && Filter === CategoryFilter ? null : (
               <div key={index} className="w-full">
-                <FilterItem
-                  key={index}
-                  Filter={Filter}
-                  products={products.products}
-                />
+                <FilterItem key={index} Filter={Filter} products={products} />
               </div>
             );
           })}

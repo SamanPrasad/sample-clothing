@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import noImage from "@assets/no-image.png";
 
 type Props = {
   color: string;
@@ -19,7 +20,7 @@ function ColorImage({ color, src, selected = false, toggleSelect }: Props) {
       onClick={toggleSelect}
     >
       <img
-        src={src}
+        src={src ? `/products/${src}.jpg` : noImage}
         className="relative w-7 aspect-square rounded-3xl object-cover object-top"
       />
     </div>

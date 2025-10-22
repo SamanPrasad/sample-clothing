@@ -1,4 +1,4 @@
-import { products } from "@data/products";
+import useVariants from "@hooks/useVariants";
 import type { RootStore } from "@store";
 import { setCart } from "@store/cart/cartSlice";
 import type { CartItem, LocalStorageCartItem } from "@typings";
@@ -7,7 +7,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Cart() {
-  const items = useSelector((store: RootStore) => store.cart.products);
+  const variants = useVariants();
+  const items = useSelector((store: RootStore) => store.cart.cartItems);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,19 +19,19 @@ function Cart() {
     const storedItemsIds = storedItems.map(
       (item: LocalStorageCartItem) => item.id
     );
-    const productsList: CartItem[] = products
+
+    const productsList: CartItem[] = variants
       .filter((product) => storedItemsIds.includes(product.id))
       .map((product) => {
         return {
-          product,
-          color:
-            storedItems.find((item) => item.id == product.id)?.color || "black",
-          size: storedItems.find((item) => item.id == product.id)?.size || "XL",
+          productVariant: product,
+          count: storedItems.find((item) => item.id == product.id)!.count,
         };
       });
 
     dispatch(setCart(productsList));
-  }, []);
+  }, [variants]);
+
   return (
     <div className="w-full relative cursor-pointer">
       <svg

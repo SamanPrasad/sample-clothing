@@ -8,7 +8,7 @@ type Props = {
 function ProductImage({ src, alt, extraClasses }: Props) {
   return (
     <img
-      src={src ?? noImage}
+      src={src ? `/products/${src}.jpg` : noImage}
       alt={alt}
       className={`${extraClasses} absolute w-full h-full object-center object-cover transition-[scale,opacity] group-hover:scale-110 duration-[2s,0.5s]`}
     />

@@ -1,49 +1,52 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import sliderStyles from "./Slider.module.css";
-import { images, potraitImages } from "../../data/sliderImages";
 import arrowLeft from "@assets/icons/arrow-left.svg";
 import arrowRight from "../../assets/icons/arrow-right.svg";
 import Loader from "../Loader/Loader";
 import { useViewWidth } from "@hooks/useViewWidth";
 import clsx from "clsx";
+import { api } from "@api/axiosClient";
+import type { SliderImageType } from "@typings";
 
 function Slider() {
   const [current, setCurrent] = useState(0);
-  const [sliding, setStatus] = useState(false);
+  const [sliding, setSlidingStatus] = useState(false);
+  const [sliderImages, setSliderImages] = useState<SliderImageType[]>([]);
+  const [loading, setLoading] = useState(true);
   const autoplayReference = useRef<ReturnType<typeof setTimeout> | null>(null);
   const width = useViewWidth();
 
   const slide = useCallback(
     (action: "next" | "prev") => {
-      setStatus(true);
-      const imagesCount = width > 768 ? images.length : potraitImages.length;
+      setSlidingStatus(true);
+      const imagesCount = sliderImages.length;
       if (action == "next") {
         setCurrent((prev) => (prev < imagesCount - 1 ? prev + 1 : 0));
       } else {
         setCurrent((prev) => (prev > 0 ? prev - 1 : imagesCount - 1));
       }
     },
-    [images.length, width, potraitImages.length]
+    [sliderImages.length]
   );
 
   const resetAutoplay = useCallback(() => {
     if (autoplayReference.current) clearTimeout(autoplayReference.current);
     autoplayReference.current = setTimeout(() => {
       slide("next");
-    }, 5000);
+    }, import.meta.env.VITE_SLIDER_TIME);
   }, [slide, width]);
 
   const manualNavigation = useCallback(
     (direction: "next" | "prev") => {
       resetAutoplay();
-      setStatus(true);
+      setSlidingStatus(true);
       slide(direction);
     },
     [resetAutoplay, slide]
   );
 
   const navigators = useMemo(() => {
-    return (width > 768 ? images : potraitImages).map((image, index) => (
+    return sliderImages.map((image, index) => (
       <div
         key={image.id}
         className={`${
@@ -52,30 +55,38 @@ function Slider() {
           index == current ? "bg-gray-500" : ""
         }`}
         onClick={() => {
-          setStatus(true);
+          setSlidingStatus(true);
           resetAutoplay();
           setCurrent(index);
         }}
       ></div>
     ));
-  }, [images, potraitImages, current, width]);
+  }, [sliderImages, current, width]);
 
-  const handleSrc = () => {
-    if (width <= 768 && potraitImages.length - 1 < current) {
-      setCurrent(0);
-      return potraitImages[0].src;
-    } else if (width > 768 && images.length - 1 < current) {
-      setCurrent(0);
-      return images[0].src;
-    }
-    return (width > 768 ? images : potraitImages)[current].src;
-  };
+  useEffect(() => {
+    setLoading(true);
+    const abortController = new AbortController();
+    api
+      .get(`/sliders?type=${width > 768 ? "landscape" : "potrait"}`, {
+        signal: abortController.signal,
+      })
+      .then((response) => {
+        console.log("Slidersssss....");
+        setSliderImages(response.data);
+      })
+      .catch((err) => console.log("Slider error", err))
+      .finally(() => {
+        if (!abortController.signal.aborted) setLoading(false);
+      });
+
+    return () => abortController.abort();
+  }, [width]);
 
   useEffect(() => {
     resetAutoplay();
-  }, [current, width]);
+  }, [current, width, sliderImages]);
 
-  if (width == 0) {
+  if (width == 0 || loading) {
     return <Loader />;
   }
 
@@ -88,8 +99,12 @@ function Slider() {
           } current z-10 object-cover ${
             sliding ? sliderStyles["slide-fade"] : ""
           }`}
-          src={handleSrc()}
-          onAnimationEnd={() => setStatus(false)}
+          src={`/slider/${
+            sliderImages.length > 0
+              ? sliderImages[current].slug
+              : "image-not-found.png"
+          }`}
+          onAnimationEnd={() => setSlidingStatus(false)}
         />
       </div>
       <div className="absolute top-2/4 -translate-y-1/2 z-20 w-full flex justify-between px-4">

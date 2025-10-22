@@ -1,5 +1,5 @@
 import { addToCart } from "@store/cart/cartSlice";
-import type { CartItem, LocalStoageNewItem } from "@typings";
+import type { LocalStoageNewItem, VariantType } from "@typings";
 import {
   getLocalStorageCartItems,
   setLocalStorageCartItems,
@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 
 type Props = {
   title: string;
-  selectedProduct: CartItem;
+  selectedProduct: VariantType;
 };
 
 function Add({ title, selectedProduct }: Props) {
@@ -24,13 +24,9 @@ function Add({ title, selectedProduct }: Props) {
   useEffect(() => {
     if (loading) {
       const storedItems = getLocalStorageCartItems("cart");
-      console.log("stored", storedItems);
       const newItem: LocalStoageNewItem = {
-        id: selectedProduct.product.id,
-        color: selectedProduct.color,
-        size: selectedProduct.size,
+        id: selectedProduct.id,
       };
-      console.log("new", newItem);
 
       setLocalStorageCartItems(storedItems, newItem);
 
