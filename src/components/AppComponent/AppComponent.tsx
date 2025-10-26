@@ -1,15 +1,11 @@
 import HeaderSection from "../HeaderSection/HeaderSection";
 import Footer from "../Footer/Footer";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import Guard from "../Guard";
-import type { RootStore } from "@store";
 import "./AppComponent.css";
 import { MemoizedAnimatedOutlet } from "@components/AnimatedOutlet";
 import { useThemeMode } from "@context/ThemeProvider";
 
 function AppComponent() {
-  const userState = useSelector((store: RootStore) => store.user.status);
   const { themeMode } = useThemeMode();
 
   useEffect(() => {
@@ -23,10 +19,6 @@ function AppComponent() {
       window.removeEventListener("focus", handleFocus);
     };
   }, []);
-
-  if (!userState) {
-    return <Guard />;
-  }
 
   return (
     <div className={themeMode == "dark" ? "dark" : ""}>

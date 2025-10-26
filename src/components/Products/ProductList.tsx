@@ -3,7 +3,7 @@ import NotFound from "../NotFound";
 import PageTitle from "../PageTitle";
 import Pagination from "../Pagination/Pagination";
 import ProductCardList from "./ProductCardList";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loader from "@components/Loader/Loader";
 import useSavePerPage from "@hooks/useSavePerPage";
 import ProductProvider from "@context/ProductProvider";
@@ -33,6 +33,12 @@ function ProductList({ title, queryObj }: Props) {
     new Set()
   );
   const [selectedSizes, setSelectedSizes] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    if (numberOfPages != 0 && numberOfPages < currentPage) {
+      setCurrentPage(numberOfPages);
+    }
+  }, [perPage, numberOfPages]);
 
   if (loading) {
     return <Loader />;

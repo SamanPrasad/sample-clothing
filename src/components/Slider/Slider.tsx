@@ -71,7 +71,6 @@ function Slider() {
         signal: abortController.signal,
       })
       .then((response) => {
-        console.log("Slidersssss....");
         setSliderImages(response.data);
       })
       .catch((err) => console.log("Slider error", err))

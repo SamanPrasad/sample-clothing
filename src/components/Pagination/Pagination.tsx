@@ -21,7 +21,7 @@ function Pagination({
   return (
     <div className="flex flex-col justify-center items-center">
       <ShowingRange currentPage={currentPage} perPage={perPage} total={total} />
-      <div className="w-[200px] h-1 mt-2.5 mb-4">
+      <div className="relative w-[200px] h-1 mt-2.5 mb-4">
         <ProgressBar currentPage={currentPage} pagesCount={pagesCount} />
       </div>
       <div className="flex justify-center">
