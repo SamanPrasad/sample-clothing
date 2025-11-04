@@ -40,7 +40,7 @@ function ProductCard({ product, parent, layout }: Props) {
 
   const excerpt = useMemo(
     () => getExcerpt(product.description, 200),
-    [product.description]
+    [product]
   );
 
   const isHorizontal = useMemo(() => {
