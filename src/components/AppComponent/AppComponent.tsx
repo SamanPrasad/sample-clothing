@@ -9,8 +9,8 @@ function AppComponent() {
   const { themeMode } = useThemeMode();
 
   useEffect(() => {
-    const handleFocus = () => (document.title = "Kelly Felder Clone");
-    const handleBlur = () => (document.title = "A bespoke tale of luxary ❤");
+    const handleFocus = () => (document.title = "Sample Clothing");
+    const handleBlur = () => (document.title = "Best Clothing in the World ❤");
     window.addEventListener("blur", handleBlur);
     window.addEventListener("focus", handleFocus);
 

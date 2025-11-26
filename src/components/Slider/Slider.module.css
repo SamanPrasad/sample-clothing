@@ -22,9 +22,11 @@
 
 @keyframes slide-emerge {
   from {
+    scale: 1.2;
     opacity: 0.7;
   }
   to {
+    scale: 1;
     opacity: 1;
   }
 }

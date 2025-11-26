@@ -55,7 +55,7 @@ function ProductCard({ product, parent, layout }: Props) {
     <div className={clsx("w-full", { flex: !isHorizontal })}>
       <div
         className={clsx(
-          "aspect-[0.7] relative group hover:rotate-2 transition-[rotate] duration-[2s] overflow-hidden",
+          "aspect-[0.7] relative group overflow-hidden rounded-2xl",
           isHorizontal && "w-full",
           !isHorizontal && "w-[250px] sm:w-2/5 md:w-1/3 lg:w-1/4 flex-none"
         )}
@@ -72,11 +72,11 @@ function ProductCard({ product, parent, layout }: Props) {
         />
 
         {isHorizontal && (
-          <div className="absolute top-[100%] w-full z-30 opacity-0 group-hover:opacity-100 group-hover:-translate-y-full duration-150">
+          <div className="absolute top-[100%] w-full z-30 opacity-0 group-hover:opacity-100 group-hover:-translate-y-full duration-300">
             {QuickAdd}
           </div>
         )}
-        <div className="absolute text-center text-xs font-[Poppins] left-0 top-0 w-12 py-1 bg-white z-30">
+        <div className="absolute text-center text-xs font-[Poppins] left-2.5 top-2.5 w-12 py-1 bg-white z-30 rounded-2xl">
           <span>New</span>
         </div>
         <Link
@@ -156,7 +156,7 @@ function ProductCard({ product, parent, layout }: Props) {
             );
           })}
         </div>
-        {!isHorizontal && <div className="w-48 mt-5">{QuickAdd}</div>}
+        {!isHorizontal && <div className="w-full mt-5">{QuickAdd}</div>}
       </div>
     </div>
   );

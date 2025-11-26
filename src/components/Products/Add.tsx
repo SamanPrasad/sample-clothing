@@ -39,7 +39,7 @@ function Add({ title, selectedProduct }: Props) {
 
   return (
     <div
-      className="w-full border border-[#232323] py-3 hover:shadow-xl/30 duration-150 bg-white hover:bg-[#232323] text-[#232323] hover:text-white cursor-pointer"
+      className="w-full py-3 duration-300 bg-white hover:bg-[#232323] text-[#232323] hover:text-white cursor-pointer"
       onClick={loading ? () => {} : handleAdd}
     >
       <h1 className="uppercase font-[Poppins] text-sm font-semibold text-center">

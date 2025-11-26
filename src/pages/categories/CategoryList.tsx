@@ -12,7 +12,7 @@ function CategoryList() {
     perPage
   );
 
-  if (loading) {
+  if (loading && groupItems.length == 0) {
     return <Loader />;
   }
 

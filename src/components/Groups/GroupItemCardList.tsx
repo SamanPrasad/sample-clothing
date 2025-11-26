@@ -12,9 +12,11 @@ type Props = {
 function GroupItemCardList({ groupItems, groupTitle, setCurrentPage }: Props) {
   return (
     <div>
-      <PageTitle title={groupTitle} />
+      <div className="w-full bg-gray-300">
+        <PageTitle title={groupTitle} />
+      </div>
       <div className="w-full flex flex-col items-center bg-white mt-5 mb-40 px-5">
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(3,minmax(0,370px))] justify-center gap-x-10 gap-y-28">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[repeat(4,minmax(0,370px))] justify-center gap-x-10 gap-y-28">
           {groupItems.map((item, index) => (
             <GroupItemCard key={index} groupItem={item} />
           ))}

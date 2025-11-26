@@ -27,21 +27,20 @@ function ProductCardList({ layout, grid, products, parent }: Props) {
   }
 
   return (
-    <div className={`w-full grid ${gridClass}  gap-7 mb-18 px-4 mt-10`}>
-      <AnimatePresence>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={gridClass}
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 10, opacity: 0 }}
+        transition={{ duration: 0.8 }}
+        className={`w-full grid ${gridClass}  gap-7 mb-18 px-4 mt-10`}
+      >
         {products.map((item) => (
-          <motion.div
-            layout
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}
-            key={item.id}
-          >
-            <ProductCard product={item} parent={parent} layout={layout} />
-          </motion.div>
+          <ProductCard product={item} parent={parent} layout={layout} />
         ))}
-      </AnimatePresence>
-    </div>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 

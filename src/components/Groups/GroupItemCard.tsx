@@ -15,7 +15,7 @@ function GroupItemCard({ groupItem }: Props) {
         <Link to={url}>
           <img
             src={`/categories/${groupItem.image}`}
-            className="image object-cover object-center w-full aspect-square"
+            className="image object-cover object-center w-full aspect-[2/3] rounded-2xl"
           />
           <div className="title w-full mt-5">
             <h1 className="text-3xl font-bold uppercase text-center">
