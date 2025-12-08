@@ -6,6 +6,7 @@ import SocialMedia from "./SocialMedia/SocialMedia";
 import CopyRight from "./CopyRight/CopyRight";
 import PaymentMethods from "./PaymentMethods/PaymentMethods";
 import AccordionList from "./Accordion/AccordionsList";
+import Connect from "./Connect/Connect";
 
 function Footer() {
   return (
@@ -30,6 +31,10 @@ function Footer() {
       <div className="footer-copyright flex justify-between items-center text-white text-xs mt-10 px-5 xl:px-[6vw]">
         <CopyRight />
         <PaymentMethods />
+      </div>
+      <div>
+        <h1>Hello</h1>
+        <Connect />
       </div>
     </div>
   );
