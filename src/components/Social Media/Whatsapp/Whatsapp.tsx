@@ -2,7 +2,7 @@ import whatsappIcon from "../../../assets/icons/whatsapp-icon.svg";
 
 function Whatsapp() {
   return (
-    <div className="group p-1.5 border border-amber-400">
+    <div className="group p-1.5">
       <a
         href="https://wa.me/00000000000?text=Hi%20there!"
         className="relative z-[200]"
