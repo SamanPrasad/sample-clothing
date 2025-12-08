@@ -1,7 +1,7 @@
 function CopyRight() {
   return (
     <div>
-      <span className="uppercase">&copy; Kelly Felder Clone</span>
+      <span className="uppercase">&copy; Sample Clothing</span>
     </div>
   );
 }
