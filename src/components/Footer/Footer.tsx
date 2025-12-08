@@ -32,10 +32,7 @@ function Footer() {
         <CopyRight />
         <PaymentMethods />
       </div>
-      <div>
-        <h1>Hello</h1>
-        <Connect />
-      </div>
+      <Connect />
     </div>
   );
 }
