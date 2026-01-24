@@ -1,4 +1,3 @@
-import { addToCart } from "@store/cart/cartSlice";
 import type { LocalStoageNewItem, VariantType } from "@typings";
 import {
   getLocalStorageCartItems,
@@ -17,7 +16,7 @@ function Add({ title, selectedProduct }: Props) {
   const dispatch = useDispatch();
 
   const handleAdd = () => {
-    dispatch(addToCart(selectedProduct));
+    // dispatch(addToCartAsync(selectedProduct));
     setLoading(true);
   };
 
@@ -25,7 +24,7 @@ function Add({ title, selectedProduct }: Props) {
     if (loading) {
       const storedItems = getLocalStorageCartItems("cart");
       const newItem: LocalStoageNewItem = {
-        id: selectedProduct.id,
+        id: selectedProduct.color,
       };
 
       setLocalStorageCartItems(storedItems, newItem);

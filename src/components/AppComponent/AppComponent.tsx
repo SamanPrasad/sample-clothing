@@ -1,12 +1,14 @@
 import HeaderSection from "../HeaderSection/HeaderSection";
 import Footer from "../Footer/Footer";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "./AppComponent.css";
-import { MemoizedAnimatedOutlet } from "@components/AnimatedOutlet";
 import { useThemeMode } from "@context/ThemeProvider";
+import { Outlet } from "react-router";
+import ScrollUpProvider from "@context/ScrollUpProvider";
 
 function AppComponent() {
   const { themeMode } = useThemeMode();
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     const handleFocus = () => (document.title = "Sample Clothing");
@@ -22,11 +24,14 @@ function AppComponent() {
 
   return (
     <div className={themeMode == "dark" ? "dark" : ""}>
-      <HeaderSection />
-      <div className="relative overflow-hidden">
-        <MemoizedAnimatedOutlet />
-      </div>
-      <Footer />
+      <div ref={scrollRef} className="scoll-ref"></div>
+      <ScrollUpProvider refObj={scrollRef}>
+        <HeaderSection />
+        <div className="relative">
+          <Outlet />
+        </div>
+        <Footer />
+      </ScrollUpProvider>
     </div>
   );
 }

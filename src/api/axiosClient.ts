@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { type AxiosResponse } from "axios";
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -10,10 +10,10 @@ api.interceptors.request.use((request) => {
 });
 
 api.interceptors.response.use(
-  (response) => {
+  <T>(response: AxiosResponse<T>): T => {
     return response.data;
   },
   async (error) => {
     return Promise.reject(error);
-  }
+  },
 );

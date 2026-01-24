@@ -113,7 +113,7 @@ function ProductCard({ product, parent, layout }: Props) {
             isHorizontal && "text-center"
           )}
         >
-          Rs {selectedVariant.price}
+          {/* Rs {selectedVariant.price} */}
         </h1>
         <div
           className={clsx(
@@ -144,7 +144,7 @@ function ProductCard({ product, parent, layout }: Props) {
             isHorizontal && "justify-center"
           )}
         >
-          {variantsBasedOnColors.get(selectedVariant.color)!.map((variant) => {
+          {/* {variantsBasedOnColors.get(selectedVariant.color)!.map((variant) => {
             return (
               <SizeButton
                 key={variant.id}
@@ -154,7 +154,7 @@ function ProductCard({ product, parent, layout }: Props) {
                 toggleSelect={() => setSelectedVariant(variant)}
               />
             );
-          })}
+          })} */}
         </div>
         {!isHorizontal && <div className="w-full mt-5">{QuickAdd}</div>}
       </div>

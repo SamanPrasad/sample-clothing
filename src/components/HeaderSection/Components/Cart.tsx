@@ -1,36 +1,15 @@
-import useVariants from "@hooks/useVariants";
-import type { RootStore } from "@store";
-import { setCart } from "@store/cart/cartSlice";
-import type { CartItem, LocalStorageCartItem } from "@typings";
-import { getLocalStorageCartItems } from "@utils/getFromLocalStorage";
+import type { Dispatch, RootStore } from "@store";
+import { setCartAsync } from "@store/cart/cartSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Cart() {
-  const variants = useVariants();
   const items = useSelector((store: RootStore) => store.cart.cartItems);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<Dispatch>();
 
   useEffect(() => {
-    //API calls for loggedin users
-    //Local Storage for guest uses
-    const storedItems: LocalStorageCartItem[] =
-      getLocalStorageCartItems("cart");
-    const storedItemsIds = storedItems.map(
-      (item: LocalStorageCartItem) => item.id
-    );
-
-    const productsList: CartItem[] = variants
-      .filter((product) => storedItemsIds.includes(product.id))
-      .map((product) => {
-        return {
-          productVariant: product,
-          count: storedItems.find((item) => item.id == product.id)!.count,
-        };
-      });
-
-    dispatch(setCart(productsList));
-  }, [variants]);
+    dispatch(setCartAsync());
+  }, []);
 
   return (
     <div className="w-full relative cursor-pointer">

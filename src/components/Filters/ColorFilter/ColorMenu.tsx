@@ -19,7 +19,11 @@ function ColorMenu({ isOpen, products, cssClasses }: Props) {
 
   const availableColors = useMemo(() => {
     return Array.from(
-      new Set(products.map((product) => product.colors).flat())
+      new Set(
+        products
+          .map((product) => product.variants.map((variant) => variant.color))
+          .flat()
+      )
     );
   }, [products]);
 

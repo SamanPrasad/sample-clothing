@@ -14,15 +14,23 @@ type Props = {
 };
 
 function SizeMenu({ products, isOpen, cssClasses }: Props) {
-  const [allSizes, setAllSizes] = useState<Size[]>([]);
+  const [allSizes, setAllSizes] = useState<string[]>([]);
   const { selectedSizes, setSelectedSizes } = useProductsContext();
 
   const availableSizes = useMemo(() => {
-    return Array.from(new Set(products.flatMap((product) => product.sizes)));
+    return Array.from(
+      new Set(
+        products.flatMap((product) =>
+          product.variants
+            .map((variant) => variant.sizes.map((size) => size.size).flat())
+            .flat()
+        )
+      )
+    );
   }, [products]);
 
   const unavailableSizes = useMemo(() => {
-    return allSizes.filter((size) => !availableSizes.includes(size.size));
+    return allSizes.filter((size) => !availableSizes.includes(size));
   }, [products, allSizes]);
 
   const toggleSelect = useCallback(
@@ -37,7 +45,7 @@ function SizeMenu({ products, isOpen, cssClasses }: Props) {
   );
   useEffect(() => {
     //Get sizes using API
-    setAllSizes(sizes);
+    setAllSizes(["M", "L", "XL", "26", "28", "XXL", "S", "30", "32", "XS"]);
   }, [products]);
 
   return (
@@ -68,12 +76,8 @@ function SizeMenu({ products, isOpen, cssClasses }: Props) {
                 />
               ))}
             {unavailableSizes.length > 0 &&
-              unavailableSizes.map((item) => (
-                <SizeButton
-                  key={item.size}
-                  size={item.size}
-                  available={false}
-                />
+              unavailableSizes.map((size) => (
+                <SizeButton key={size} size={size} available={false} />
               ))}
           </div>
           <ClearAll clearAll={() => setSelectedSizes(new Set())} />

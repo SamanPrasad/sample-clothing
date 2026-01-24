@@ -3,18 +3,19 @@ export type ProductType = {
   title: string;
   slug: string;
   description: string;
-  sizes: string[];
-  colors: string[];
   tags: string[];
   variants: VariantType[];
 };
 
 export type VariantType = {
-  id: string;
-  productId: string;
   color: string;
+  sizes: SizeType[];
+  images: string[];
+};
+
+export type SizeType = {
   size: string;
   price: number;
-  stock: number;
-  images: string[];
+  availableStock: number;
+  sku: string;
 };

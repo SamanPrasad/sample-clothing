@@ -1,13 +1,36 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { CartItem, VariantType } from "@typings";
+import { api } from "@api/axiosClient";
+import {
+  createAsyncThunk,
+  createSlice,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
+import type { AddToCartPayload, CartItem } from "@typings";
 
 type CartState = {
   cartItems: CartItem[];
+  waiting: boolean;
 };
 
 const initialState: CartState = {
   cartItems: [],
+  waiting: false,
 };
+
+export const addToCartAsync = createAsyncThunk<CartItem[], AddToCartPayload>(
+  "cart/addToCartAsync",
+  async (payload) => {
+    const response = await api.post<CartItem[]>("/cart", payload);
+    return response.data;
+  },
+);
+
+export const setCartAsync = createAsyncThunk<CartItem[]>(
+  "cart/setCart",
+  async () => {
+    const response = await api.get<CartItem[]>("/cart");
+    return response.data;
+  },
+);
 
 const cartSlice = createSlice({
   name: "cart",
@@ -16,21 +39,24 @@ const cartSlice = createSlice({
     setCart: (cart, action) => {
       cart.cartItems = action.payload;
     },
-    addToCart: (cart, action: PayloadAction<VariantType>) => {
-      const index = cart.cartItems.findIndex(
-        (item) => item.productVariant.id == action.payload.id
-      );
-      if (index > -1) {
-        cart.cartItems[index].count += 1;
-      } else {
-        cart.cartItems.push({ productVariant: action.payload, count: 0 });
-      }
-    },
-    // removeFromCart: (items) => {
-    //   items.count -= 1;
-    // },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(addToCartAsync.pending, (cart) => {
+        cart.waiting = true;
+      })
+      .addCase(addToCartAsync.rejected, (cart) => {
+        cart.waiting = false;
+      })
+      .addCase(addToCartAsync.fulfilled, (cart, action) => {
+        cart.waiting = false;
+        cart.cartItems = action.payload;
+      })
+      .addCase(setCartAsync.fulfilled, (cart, action) => {
+        cart.cartItems = action.payload;
+      });
   },
 });
 
-export const { addToCart, setCart } = cartSlice.actions;
+export const { setCart } = cartSlice.actions;
 export default cartSlice.reducer;
