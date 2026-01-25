@@ -7,7 +7,6 @@ import ProductImage from "./ProductImage";
 import noImage from "@assets/no-image.png";
 import clsx from "clsx";
 import ColorImage from "./ColorImage";
-import SizeButton from "@components/Filters/SizeFilter/SizeButton";
 import { useViewWidth } from "@hooks/useViewWidth";
 import { Link } from "react-router";
 
@@ -20,10 +19,10 @@ interface Props {
 function ProductCard({ product, parent, layout }: Props) {
   const viewWidth = useViewWidth();
   const [selectedVariant, setSelectedVariant] = useState<VariantType>(
-    product.variants[0]
+    product.variants[0],
   );
 
-  const { variantColors, variantsBasedOnColors } = useMemo(() => {
+  const { variantColors } = useMemo(() => {
     const variantColors = new Set<string>();
     const variantsBasedOnColors = new Map<string, VariantType[]>();
     product.variants.forEach((variant) => {
@@ -40,7 +39,7 @@ function ProductCard({ product, parent, layout }: Props) {
 
   const excerpt = useMemo(
     () => getExcerpt(product.description, 200),
-    [product]
+    [product],
   );
 
   const isHorizontal = useMemo(() => {
@@ -57,7 +56,7 @@ function ProductCard({ product, parent, layout }: Props) {
         className={clsx(
           "aspect-[0.7] relative group overflow-hidden rounded-2xl",
           isHorizontal && "w-full",
-          !isHorizontal && "w-[250px] sm:w-2/5 md:w-1/3 lg:w-1/4 flex-none"
+          !isHorizontal && "w-[250px] sm:w-2/5 md:w-1/3 lg:w-1/4 flex-none",
         )}
       >
         <ProductImage
@@ -88,7 +87,7 @@ function ProductCard({ product, parent, layout }: Props) {
         <h1
           className={clsx(
             "uppercase font-[Poppins] font-semibold text-xs opacity-30 tracking-wider",
-            isHorizontal && "text-center"
+            isHorizontal && "text-center",
           )}
         >
           {parent}
@@ -96,7 +95,7 @@ function ProductCard({ product, parent, layout }: Props) {
         <p
           className={clsx(
             "font-[Poppins] text-xs font-medium mt-1 tracking-wide",
-            isHorizontal && "text-center"
+            isHorizontal && "text-center",
           )}
         >
           {product.title}
@@ -110,7 +109,7 @@ function ProductCard({ product, parent, layout }: Props) {
         <h1
           className={clsx(
             "font-[Poppins] text-sm font-semibold mt-3 tracking-wide",
-            isHorizontal && "text-center"
+            isHorizontal && "text-center",
           )}
         >
           {/* Rs {selectedVariant.price} */}
@@ -119,16 +118,16 @@ function ProductCard({ product, parent, layout }: Props) {
           className={clsx(
             "flex items-center gap-3 mt-5",
             !isHorizontal && "justify-start",
-            isHorizontal && "justify-center"
+            isHorizontal && "justify-center",
           )}
         >
           {variantColors.map((color) => {
             const variant = product.variants.find(
-              (variant) => variant.color == color
+              (variant) => variant.color == color,
             )!;
             return (
               <ColorImage
-                key={variant.id}
+                key={variant.color}
                 color={variant.color}
                 src={variant.images[0] ?? noImage}
                 selected={selectedVariant.color == variant.color}
@@ -141,7 +140,7 @@ function ProductCard({ product, parent, layout }: Props) {
           className={clsx(
             "flex items-center gap-3 mt-2",
             !isHorizontal && "justify-start",
-            isHorizontal && "justify-center"
+            isHorizontal && "justify-center",
           )}
         >
           {/* {variantsBasedOnColors.get(selectedVariant.color)!.map((variant) => {

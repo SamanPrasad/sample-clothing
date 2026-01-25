@@ -4,7 +4,6 @@ import {
   setLocalStorageCartItems,
 } from "@utils/getFromLocalStorage";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 
 type Props = {
   title: string;
@@ -13,7 +12,6 @@ type Props = {
 
 function Add({ title, selectedProduct }: Props) {
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
 
   const handleAdd = () => {
     // dispatch(addToCartAsync(selectedProduct));

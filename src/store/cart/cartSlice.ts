@@ -1,9 +1,5 @@
 import { api } from "@api/axiosClient";
-import {
-  createAsyncThunk,
-  createSlice,
-  type PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { AddToCartPayload, CartItem } from "@typings";
 
 type CartState = {
@@ -45,7 +41,8 @@ const cartSlice = createSlice({
       .addCase(addToCartAsync.pending, (cart) => {
         cart.waiting = true;
       })
-      .addCase(addToCartAsync.rejected, (cart) => {
+      .addCase(addToCartAsync.rejected, (cart, payload) => {
+        console.log(payload.error);
         cart.waiting = false;
       })
       .addCase(addToCartAsync.fulfilled, (cart, action) => {

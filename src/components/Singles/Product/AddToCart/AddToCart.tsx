@@ -1,7 +1,7 @@
 import type { Dispatch, RootStore } from "@store";
 import { addToCartAsync } from "@store/cart/cartSlice";
 import clsx from "clsx";
-import { type PropsWithChildren } from "react";
+import { useMemo, type PropsWithChildren } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 type Props = PropsWithChildren<{
@@ -14,8 +14,11 @@ type Props = PropsWithChildren<{
 function AddToCart({ productId, variant, size, count }: Props) {
   const dispatch = useDispatch<Dispatch>();
   const isAdding = useSelector((store: RootStore) => store.cart.waiting);
-  const buttonDisabled = size && !isAdding ? false : true;
-  console.log("addingggg", isAdding, size, buttonDisabled);
+  const buttonDisabled = useMemo(
+    () => (size && !isAdding ? false : true),
+    [size, isAdding],
+  );
+
   return (
     <div>
       <button

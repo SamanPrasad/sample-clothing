@@ -1,5 +1,3 @@
-import type { VariantType } from "./product";
-
 export type CartItem = {
   productId: string;
   title: string;

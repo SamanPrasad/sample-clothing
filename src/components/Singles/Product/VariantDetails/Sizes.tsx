@@ -19,8 +19,6 @@ function Sizes({ selectedVariant, selectedSize, setSize, setQuantity }: Props) {
     [setSize, setQuantity],
   );
 
-  console.log("selected size", selectedSize);
-
   return (
     <section className="mt-4">
       <span className="uppercase text-sm font-theme">select size</span>

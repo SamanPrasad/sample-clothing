@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import SizeButton from "./SizeButton";
-import type { ProductType, Size } from "@typings";
-import { sizes } from "@data/sizes";
+import type { ProductType } from "@typings";
 import ClearAll from "../Shared/ClearAll";
 import { useProductsContext } from "@hooks/useProductContext";
 import clsx from "clsx";
@@ -23,9 +22,9 @@ function SizeMenu({ products, isOpen, cssClasses }: Props) {
         products.flatMap((product) =>
           product.variants
             .map((variant) => variant.sizes.map((size) => size.size).flat())
-            .flat()
-        )
-      )
+            .flat(),
+        ),
+      ),
     );
   }, [products]);
 
@@ -41,7 +40,7 @@ function SizeMenu({ products, isOpen, cssClasses }: Props) {
         return newSet;
       });
     },
-    [setSelectedSizes]
+    [setSelectedSizes],
   );
   useEffect(() => {
     //Get sizes using API
@@ -54,14 +53,14 @@ function SizeMenu({ products, isOpen, cssClasses }: Props) {
         "w-full top-9 left-0 pt-0.5 duration-300",
         isOpen && "max-h-60",
         !isOpen && "max-h-0",
-        cssClasses
+        cssClasses,
       )}
     >
       <Dropdown isOpen={isOpen}>
         <div
           className={clsx(
             "w-full bg-white px-3 pt-1.5 pb-3 duration-300",
-            !isOpen && "-translate-y-9"
+            !isOpen && "-translate-y-9",
           )}
         >
           <div className="w-full flex justify-start max-h-38 content-around flex-wrap space-x-2 overflow-hidden mb-3">
