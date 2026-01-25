@@ -4,11 +4,11 @@ import type { GridLayoutType } from "@typings";
 import getExcerpt from "@utils/getExcerpt";
 import { useMemo, useState } from "react";
 import ProductImage from "./ProductImage";
-import noImage from "@assets/no-image.png";
 import clsx from "clsx";
 import ColorImage from "./ColorImage";
 import { useViewWidth } from "@hooks/useViewWidth";
 import { Link } from "react-router";
+import useNoImage from "@hooks/useNoImage";
 
 interface Props {
   product: ProductType;
@@ -49,6 +49,8 @@ function ProductCard({ product, parent, layout }: Props) {
   const QuickAdd = useMemo(() => {
     return <Add title="quick add" selectedProduct={selectedVariant} />;
   }, [selectedVariant]);
+
+  const noImage = useNoImage();
 
   return (
     <div className={clsx("w-full", { flex: !isHorizontal })}>
