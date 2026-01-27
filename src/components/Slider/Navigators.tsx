@@ -1,5 +1,5 @@
 import type { SliderImageType } from "@typings";
-import React, { type PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
 import styles from "./Slider.module.css";
 import type { SetStateFuncType } from "types/utils";
 import clsx from "clsx";
