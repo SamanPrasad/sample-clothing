@@ -70,7 +70,7 @@ function Slider() {
   }
 
   return (
-    <div className={clsx("relative group w-full h-[100vh]")}>
+    <div className={clsx("relative group w-full h-[100vh] overflow-hidden")}>
       <div
         className={clsx("slider-images-wrapper w-full h-full overflow-hidden")}
       >
