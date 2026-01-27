@@ -13,7 +13,7 @@ interface Props {
 }
 
 function Menu({ openState, setOpenState }: Props) {
-  const width = useViewWidth();
+  const { width } = useViewWidth();
   useLockBodyScroll(openState);
 
   //close mobile menu when view port get larger

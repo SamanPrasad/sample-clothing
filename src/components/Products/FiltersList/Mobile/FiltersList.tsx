@@ -20,7 +20,7 @@ const filtersList = [CategoryFilter, SizeFilter, PrizeFilter, ColorFilter];
 
 function FiltersList({ products, type }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const width = useViewWidth();
+  const { width } = useViewWidth();
   useLockBodyScroll(isOpen);
 
   //close filter menu when view port get larger

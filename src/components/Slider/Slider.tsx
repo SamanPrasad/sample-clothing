@@ -1,70 +1,46 @@
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import sliderStyles from "./Slider.module.css";
-import arrowLeft from "@assets/icons/arrow-left.svg";
-import arrowRight from "../../assets/icons/arrow-right.svg";
-import Loader from "../Loader/Loader";
-import { useViewWidth } from "@hooks/useViewWidth";
-import clsx from "clsx";
 import { api } from "@api/axiosClient";
+import { useViewWidth } from "@hooks/useViewWidth";
 import type { SliderImageType } from "@typings";
+import clsx from "clsx";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+import styles from "./Slider.module.css";
+import Loader from "@components/Loader/Loader";
+import arrowLeft from "@assets/icons/arrow-left.svg";
+import arrowRight from "@assets/icons/arrow-right.svg";
+import Navigators from "./Navigators";
 
 function Slider() {
-  const [current, setCurrent] = useState(0);
-  const [sliding, setSlidingStatus] = useState(false);
   const [sliderImages, setSliderImages] = useState<SliderImageType[]>([]);
-  const [loading, setLoading] = useState(true);
-  const autoplayReference = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const width = useViewWidth();
+  const { width, isWidthLoading } = useViewWidth();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const autoplayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const slide = useCallback(
-    (action: "next" | "prev") => {
-      setSlidingStatus(true);
-      const imagesCount = sliderImages.length;
-      if (action == "next") {
-        setCurrent((prev) => (prev < imagesCount - 1 ? prev + 1 : 0));
-      } else {
-        setCurrent((prev) => (prev > 0 ? prev - 1 : imagesCount - 1));
-      }
+    (action: "prev" | "next") => {
+      setCurrentImageIndex((prev) =>
+        action == "next"
+          ? currentImageIndex == sliderImages.length - 1
+            ? 0
+            : prev + 1
+          : currentImageIndex == 0
+            ? sliderImages.length - 1
+            : prev - 1,
+      );
     },
-    [sliderImages.length]
+    [currentImageIndex, sliderImages, setCurrentImageIndex],
   );
 
   const resetAutoplay = useCallback(() => {
-    if (autoplayReference.current) clearTimeout(autoplayReference.current);
-    autoplayReference.current = setTimeout(() => {
+    if (autoplayRef.current) {
+      clearTimeout(autoplayRef.current);
+    }
+    autoplayRef.current = setTimeout(() => {
       slide("next");
-    }, import.meta.env.VITE_SLIDER_TIME);
-  }, [slide, width]);
-
-  const manualNavigation = useCallback(
-    (direction: "next" | "prev") => {
-      resetAutoplay();
-      setSlidingStatus(true);
-      slide(direction);
-    },
-    [resetAutoplay, slide]
-  );
-
-  const navigators = useMemo(() => {
-    return sliderImages.map((image, index) => (
-      <div
-        key={image.id}
-        className={`${
-          sliderStyles["navigate-item"]
-        } h-4 aspect-square rounded-2xl border-1 border-gray-500 cursor-pointer ${
-          index == current ? "bg-gray-500" : ""
-        }`}
-        onClick={() => {
-          setSlidingStatus(true);
-          resetAutoplay();
-          setCurrent(index);
-        }}
-      ></div>
-    ));
-  }, [sliderImages, current, width]);
+    }, 4000);
+  }, [slide]);
 
   useEffect(() => {
-    setLoading(true);
     const abortController = new AbortController();
     api
       .get(`/sliders?type=${width > 768 ? "landscape" : "potrait"}`, {
@@ -75,7 +51,7 @@ function Slider() {
       })
       .catch((err) => console.log("Slider error", err))
       .finally(() => {
-        if (!abortController.signal.aborted) setLoading(false);
+        if (!abortController.signal.aborted) setIsLoading(false);
       });
 
     return () => abortController.abort();
@@ -83,52 +59,57 @@ function Slider() {
 
   useEffect(() => {
     resetAutoplay();
-  }, [current, width, sliderImages]);
+  }, [currentImageIndex]);
 
-  if (width == 0 || loading) {
+  useEffect(() => {
+    if (sliderImages.length > 0) setCurrentImageIndex(0);
+  }, [sliderImages]);
+
+  if (width == 0 || isLoading || isWidthLoading) {
     return <Loader />;
   }
 
   return (
-    <div className="w-full overflow-hidden group h-[130vw] md:h-[40vw] relative">
-      <div className="relative h-full">
+    <div className={clsx("relative group w-full h-[100vh]")}>
+      <div
+        className={clsx("slider-images-wrapper w-full h-full overflow-hidden")}
+      >
         <img
-          className={`${
-            sliderStyles["slider-item"]
-          } current z-10 object-cover ${
-            sliding ? sliderStyles["slide-fade"] : ""
-          }`}
-          src={`/slider/${
-            sliderImages.length > 0
-              ? sliderImages[current].slug
-              : "image-not-found.png"
-          }`}
-          onAnimationEnd={() => setSlidingStatus(false)}
-        />
-      </div>
-      <div className="absolute top-2/4 -translate-y-1/2 z-20 w-full flex justify-between px-4">
-        <img
-          src={arrowLeft}
+          key={currentImageIndex}
+          src={`/slider/${sliderImages.length > 0 ? sliderImages[currentImageIndex].slug : "image-not-found.png"}`}
           alt=""
-          className={clsx(
-            "min-h-8 h-[8vw] md:h-15 rounded-4xl md:opacity-0 group-hover:opacity-100 group-hover:translate-x-0 bg-[#d4d4d4] md:bg-transparent md:-translate-x-20",
-            sliderStyles["slider-arrow"]
-          )}
-          onClick={() => manualNavigation("prev")}
-        />
-        <img
-          src={arrowRight}
-          alt=""
-          className={clsx(
-            "min-h-8 h-[8vw] md:h-15 rounded-4xl md:opacity-0 group-hover:opacity-100 group-hover:translate-x-0 bg-[#d4d4d4] md:bg-transparent md:translate-x-20",
-            sliderStyles["slider-arrow"]
-          )}
-          onClick={() => manualNavigation("next")}
+          className={clsx("w-full h-full object-cover", styles["slide-fade"])}
         />
       </div>
-      <div className="absolute flex justify-center gap-5 bottom-10 w-full z-30">
-        {navigators}
+      <div
+        className={clsx(
+          "navigation-arrows absolute top-1/2 -translate-y-1/2 inset-x-2.5 flex justify-between",
+        )}
+      >
+        <div
+          className={clsx(
+            "min-h-8 h-[8vw] md:h-15 rounded-4xl md:opacity-0 group-hover:opacity-100 group-hover:translate-x-0 bg-[#d4d4d4] md:bg-transparent md:-translate-x-20 overflow-hidden",
+            styles["slider-arrow"],
+          )}
+          onClick={() => slide("prev")}
+        >
+          <img src={arrowLeft} alt="" className="w-full h-full" />
+        </div>
+        <div
+          className={clsx(
+            "min-h-8 h-[8vw] md:h-15 rounded-4xl md:opacity-0 group-hover:opacity-100 group-hover:translate-x-0 bg-[#d4d4d4] md:bg-transparent md:translate-x-20 overflow-hidden",
+            styles["slider-arrow"],
+          )}
+          onClick={() => slide("next")}
+        >
+          <img src={arrowRight} alt="" className="w-full h-full" />
+        </div>
       </div>
+      <Navigators
+        currentImageIndex={currentImageIndex}
+        setCurrentImageIndex={setCurrentImageIndex}
+        sliderImages={sliderImages}
+      />
     </div>
   );
 }

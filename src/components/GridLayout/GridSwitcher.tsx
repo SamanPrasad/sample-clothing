@@ -47,7 +47,7 @@ const gridOptions: {
 ];
 
 function GridSwitcher({ gridLayout }: Props) {
-  const viewWidth = useViewWidth();
+  const { width: viewWidth } = useViewWidth();
 
   const handleLayout = useCallback(
     ({
@@ -60,7 +60,7 @@ function GridSwitcher({ gridLayout }: Props) {
       gridLayout.setLayout(layout);
       gridLayout.setGrid(gridValue ?? 4);
     },
-    [gridLayout]
+    [gridLayout],
   );
 
   useEffect(() => {

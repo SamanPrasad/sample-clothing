@@ -17,7 +17,7 @@ interface Props {
 }
 
 function ProductCard({ product, parent, layout }: Props) {
-  const viewWidth = useViewWidth();
+  const { width: viewWidth } = useViewWidth();
   const [selectedVariant, setSelectedVariant] = useState<VariantType>(
     product.variants[0],
   );
