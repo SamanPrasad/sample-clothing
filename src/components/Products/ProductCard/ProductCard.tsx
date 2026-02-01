@@ -95,7 +95,7 @@ function ProductCard({ product }: Props) {
                       tabIndex={-1}
                       className="w-full h-full"
                     >
-                      <span className="relative after:content-[''] after:absolute after:left-0 after:top-[85%] after:w-0 after:h-0.5 after:bg-black after:rounded-2xl hover:after:w-full after:transition-all after:duration-300 p-0">
+                      <span className="relative font-medium after:content-[''] after:absolute after:left-0 after:top-[85%] after:w-0 after:h-0.5 after:bg-black after:rounded-2xl hover:after:w-full after:transition-all after:duration-300 p-0">
                         {size}
                       </span>
                     </a>
