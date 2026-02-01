@@ -85,7 +85,6 @@ function ProductList({ title, queryObj }: Props) {
             layout={gridLayoutControls.layout}
             grid={gridLayoutControls.grid}
             products={products}
-            parent={title}
           />
         ) : (
           <div className="py-10 text-2xl">

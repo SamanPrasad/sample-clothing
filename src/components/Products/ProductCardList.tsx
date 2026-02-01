@@ -9,7 +9,6 @@ type Props = {
   layout: GridLayoutType;
   grid: GridValueType;
   products: ProductType[];
-  parent: string;
 };
 
 const gridClasses: Record<GridValueType, string> = {
@@ -19,7 +18,7 @@ const gridClasses: Record<GridValueType, string> = {
   4: "grid-cols-4",
 };
 
-function ProductCardList({ layout, grid, products, parent }: Props) {
+function ProductCardList({ layout, grid, products }: Props) {
   const gridClass = layout == "vertical" ? "grid-cols-1" : gridClasses[grid];
 
   if (!products) {
