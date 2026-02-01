@@ -37,7 +37,7 @@ function ProductCardList({ layout, grid, products, parent }: Props) {
         className={`w-full grid ${gridClass}  gap-7 mb-18 px-4 mt-10`}
       >
         {products.map((item) => (
-          <ProductCard product={item} parent={parent} layout={layout} />
+          <ProductCard product={item} />
         ))}
       </motion.div>
     </AnimatePresence>

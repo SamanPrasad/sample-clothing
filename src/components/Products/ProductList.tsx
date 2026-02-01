@@ -25,12 +25,12 @@ function ProductList({ title, queryObj }: Props) {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const { products, numberOfPages, total, loading } = useProducts(
     currentPage,
-    perPage
+    perPage,
   );
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [selectedColors, setSelectedColors] = useState<Set<string>>(new Set());
   const [selectedCategories, setSelectedCategories] = useState<Set<number>>(
-    new Set()
+    new Set(),
   );
   const [selectedSizes, setSelectedSizes] = useState<Set<string>>(new Set());
 
@@ -68,7 +68,7 @@ function ProductList({ title, queryObj }: Props) {
         setSelectedSizes: setSelectedSizes,
       }}
     >
-      <div>
+      <div className="px-10">
         <PageTitle title={title} />
         <DesktopFiltersList type={queryObj.type} products={products} />
         <div ref={scrollRef}>
